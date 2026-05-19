@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — ANOTIMPURI / Vivaldi · Romanian Guitar Quartet</title>
+  <meta name="description" content="Contact pentru turneul Anotimpuri / Vivaldi al Romanian Guitar Quartet. Presă, rezervări, parteneriate.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="script-mark">Vivaldi</span>
+        Anotimpuri
+      </a>
+      <nav class="site-nav" id="main-nav">
+        <ul>
+          <li><a href="index.html">Acasă</a></li>
+          <li><a href="about.html">Despre</a></li>
+          <li><a href="index.html#concerte">Program</a></li>
+          <li><a href="index.html#muzicieni">Muzicieni</a></li>
+          <li><a href="index.html#compozitori">Compozitori</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Deschide meniul">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="container container--narrow">
+        <span class="eyebrow">Scrie-ne</span>
+        <div class="script">Contact</div>
+        <h1>Hai să vorbim</h1>
+        <p class="subtitle">
+          Pentru solicitări de presă, rezervări, parteneriate sau orice altă întrebare
+          legată de turneu, ne poți scrie folosind formularul de mai jos.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT GRID -->
+    <section class="section">
+      <div class="container">
+        <div class="grid-2" style="gap:4rem;">
+
+          <!-- FORM -->
+          <div class="reveal">
+            <span class="eyebrow">Formular de contact</span>
+            <h2 style="margin-bottom:2rem;">Trimite-ne un mesaj</h2>
+
+            <div class="form-group">
+              <label for="nume">Nume</label>
+              <input type="text" id="nume" name="nume" placeholder="Numele dvs.">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="adresa@email.ro">
+            </div>
+
+            <div class="form-group">
+              <label for="subiect">Subiect</label>
+              <select id="subiect" name="subiect">
+                <option value="presa">Solicitare de presă</option>
+                <option value="rezervari">Rezervări concert</option>
+                <option value="parteneriat">Propunere de parteneriat</option>
+                <option value="general">Întrebare generală</option>
+                <option value="altul">Altul</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="mesaj">Mesaj</label>
+              <textarea id="mesaj" name="mesaj" placeholder="Scrie aici mesajul tău..."></textarea>
+            </div>
+
+            <button type="button" class="btn btn--filled" onclick="alert('Funcționalitatea de trimitere va fi conectată ulterior. Între timp, ne poți scrie direct la contact@anotimpuri.com');">
+              Trimite mesajul
+            </button>
+          </div>
+
+          <!-- INFO -->
+          <div class="reveal">
+            <span class="eyebrow">Date de contact</span>
+            <h2 style="margin-bottom:2rem;">Detalii</h2>
+
+            <div style="margin-bottom: 2.5rem;">
+              <h4 style="color:var(--summer-deep); margin-bottom:0.5rem;">Organizator</h4>
+              <p style="font-family:var(--font-heading); font-weight:700; color:var(--ink); margin-bottom:0.3rem;">
+                Asociația Culturală Kitharalogos
+              </p>
+              <p style="font-style:italic; color:var(--charcoal);">
+                Promovarea muzicii chitaristice românești și valorificarea patrimoniului cultural.
+              </p>
+            </div>
+
+            <div style="margin-bottom: 2.5rem;">
+              <h4 style="color:var(--summer-deep); margin-bottom:0.5rem;">Email</h4>
+              <p><a href="mailto:contact@anotimpuri.com">contact@anotimpuri.com</a></p>
+            </div>
+
+            <div style="margin-bottom: 2.5rem;">
+              <h4 style="color:var(--summer-deep); margin-bottom:0.5rem;">Web</h4>
+              <p><a href="https://www.anotimpuri.com" target="_blank" rel="noopener">www.anotimpuri.com</a></p>
+            </div>
+
+            <div style="margin-bottom: 2.5rem;">
+              <h4 style="color:var(--summer-deep); margin-bottom:0.8rem;">Social Media</h4>
+              <ul style="list-style:none;">
+                <li style="margin-bottom:0.4rem;">
+                  <a href="https://www.facebook.com/kitharalogos" target="_blank" rel="noopener">
+                    facebook.com/kitharalogos
+                  </a>
+                </li>
+                <li style="margin-bottom:0.4rem;">
+                  <a href="https://www.facebook.com/anotimpuri.rgq" target="_blank" rel="noopener">
+                    facebook.com/anotimpuri.rgq
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div style="padding:1.5rem; background:rgba(165, 188, 198, 0.15); border-left:3px solid var(--winter); margin-top:2rem;">
+              <h4 style="color:var(--winter-deep); margin-bottom:0.6rem;">Rezervări Castelul Peleș</h4>
+              <p style="font-size:0.95rem; margin-bottom:0.3rem;">
+                Pentru concertul din 25 iulie de la Sala Mare de Concerte, rezervările se fac direct la:
+              </p>
+              <p style="margin-top:0.5rem;">
+                <a href="mailto:peles.ro@gmail.com">peles.ro@gmail.com</a>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--cream">
+      <div class="container container--narrow text-center reveal">
+        <div class="divider-ornament"><span>♪</span></div>
+        <h2>Vino la concert</h2>
+        <p style="font-size:1.1rem; color:var(--charcoal); margin: 1.5rem auto 2.5rem; max-width:600px;">
+          Consultă calendarul complet al turneului și alege concertul cel mai aproape de tine.
+          Intrarea este în limita locurilor disponibile.
+        </p>
+        <a href="index.html#concerte" class="btn btn--filled">Vezi Programul</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="logo">
+            <span class="script-mark">Vivaldi</span>
+            Anotimpuri
+          </span>
+          <p>
+            Romanian Guitar Quartet · Turneu Național 2025<br>
+            Organizator: Asociația Culturală Kitharalogos
+          </p>
+          <p style="font-size:0.82rem; margin-top:1rem; color:var(--warm-grey);">
+            Proiect cultural co-finanțat de Administrația Fondului Cultural Național.
+          </p>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/kitharalogos" target="_blank" rel="noopener" aria-label="Facebook Kitharalogos">f</a>
+            <a href="https://www.facebook.com/anotimpuri.rgq" target="_blank" rel="noopener" aria-label="Facebook Anotimpuri">A</a>
+            <a href="mailto:contact@anotimpuri.com" aria-label="Email">✉</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Navigare</h4>
+          <ul>
+            <li><a href="index.html">Acasă</a></li>
+            <li><a href="about.html">Despre proiect</a></li>
+            <li><a href="index.html#concerte">Program</a></li>
+            <li><a href="index.html#muzicieni">Muzicieni</a></li>
+          <li><a href="index.html#compozitori">Compozitori</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Conectează-te</h4>
+          <ul>
+            <li><a href="https://www.anotimpuri.com" target="_blank" rel="noopener">anotimpuri.com</a></li>
+            <li><a href="https://www.facebook.com/kitharalogos" target="_blank" rel="noopener">facebook.com/kitharalogos</a></li>
+            <li><a href="https://www.facebook.com/anotimpuri.rgq" target="_blank" rel="noopener">facebook.com/anotimpuri.rgq</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Asociația Culturală Kitharalogos</span>
+        <span>AFCN nu este responsabilă de conținutul proiectului.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('main-nav');
+    hamburger.addEventListener('click', () => nav.classList.toggle('open'));
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
