@@ -5,7 +5,7 @@
    ============================================= */
 
 /* --- FONTS --- */
-@import url('https://fonts.googleapis.com/css2?family=Italianno&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italianno&family=Archivo+Black&family=Montserrat:wght@400;500;600;700;800&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap');
 
 /* --- CSS VARIABLES --- */
 :root {
@@ -31,8 +31,8 @@
 
   /* Neutrals */
   --ink:          #1a1612;
---ink-soft  :     #2e2820;
-  --charcoal:     #4a3f33;
+  --ink-soft:     #2e2820;
+  --charcoal:     #1d1813;
   --warm-grey:    #7a6f5e;
   --mist:         #a89b86;
   --cream:        #faf3e3;
@@ -41,9 +41,20 @@
   --line:         rgba(74, 63, 51, 0.18);
   --line-strong:  rgba(74, 63, 51, 0.35);
 
-  --font-display: 'Italianno', cursive;
-  --font-heading: 'Manrope', sans-serif;
-  --font-body:    'Cormorant Garamond', serif;
+  /* Free-font mapping aligned to designer's spec (Fonturi.docx).
+     Replacements where the original (paid/restricted) font isn't available free:
+       Quentin       → Italianno         (script display)
+       Utendo Bold   → Archivo Black     (bold geometric display title)
+       Montserrat    → Montserrat        (exact match)
+       TT Rounds Neue→ Nunito            (closest free rounded geometric sans)
+       Coolvetica    → Montserrat 600    (no good free match; same family for now) */
+  --font-display:  'Italianno', cursive;                       /* script — Vivaldi */
+  --font-title:    'Archivo Black', 'Montserrat', sans-serif;  /* ANOTIMPURI display title */
+  --font-brand:    'Montserrat', sans-serif;                   /* brand, artist names */
+  --font-heading:  'Nunito', 'Montserrat', sans-serif;         /* section headings, eyebrows fallback */
+  --font-names:    'Nunito', 'Montserrat', sans-serif;         /* composer/location names */
+  --font-eyebrow:  'Montserrat', sans-serif;                   /* eyebrow labels */
+  --font-body:     'Nunito', sans-serif;                       /* body */
 
   --transition:   0.4s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow-soft:  0 4px 30px rgba(74, 63, 51, 0.08);
@@ -120,18 +131,18 @@ em { font-style: italic; color: var(--charcoal); }
 
 .script {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 200;
   font-style: italic;
 }
 
 .eyebrow {
   display: inline-block;
-  font-family: var(--font-heading);
-  font-size: 0.9rem;
+  font-family: var(--font-eyebrow);
+  font-size: 0.72rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--summer-deep);
-  font-weight: 800;
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 
@@ -149,7 +160,7 @@ em { font-style: italic; color: var(--charcoal); }
 }
 .divider-ornament span {
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: var(--summer);
   display: inline-block;
   padding: 0 1.5rem;
@@ -209,7 +220,7 @@ em { font-style: italic; color: var(--charcoal); }
   height: 78px;
 }
 .site-logo {
-  font-family: var(--font-heading);
+  font-family: var(--font-brand);
   font-size: 1rem;
   font-weight: 800;
   color: var(--ink);
@@ -220,8 +231,8 @@ em { font-style: italic; color: var(--charcoal); }
 .site-logo .script-mark {
   display: block;
   font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 400;
+  font-size: 1.4rem;
+  font-weight: 200;
   text-transform: none;
   color: var(--summer-deep);
   letter-spacing: 0;
@@ -292,80 +303,93 @@ em { font-style: italic; color: var(--charcoal); }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 75% 55% at 25% 30%, rgba(138, 163, 184, 0.40) 0%, transparent 60%),
-    radial-gradient(ellipse 65% 55% at 75% 45%, rgba(90, 120, 145, 0.30) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 50% 80%, rgba(184, 199, 212, 0.32) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 85% 20%, rgba(214, 106, 63, 0.45) 0%, transparent 60%),
-    radial-gradient(ellipse 55% 50% at 15% 85%, rgba(155, 69, 33, 0.38) 0%, transparent 60%),
-    url('hero-texture.jpg');
-  background-size: auto, auto, auto, auto, auto, 900px auto;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
-  background-blend-mode: normal, normal, normal, normal, normal, multiply;
+  background-image: url('hero-poster.jpg');
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
 }
+/* Semi-transparent warm wash over the poster to keep text legible */
 .hero-bg::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600' viewBox='0 0 400 600'%3E%3Cg opacity='0.45' fill='none' stroke='%231a1612' stroke-width='2'%3E%3Crect x='40' y='80' width='30' height='90'/%3E%3Crect x='90' y='120' width='35' height='80'/%3E%3Crect x='145' y='60' width='28' height='110'/%3E%3Crect x='195' y='100' width='32' height='85'/%3E%3Crect x='250' y='140' width='25' height='70'/%3E%3Crect x='300' y='90' width='30' height='95'/%3E%3Crect x='60' y='280' width='28' height='100'/%3E%3Crect x='110' y='320' width='32' height='85'/%3E%3Crect x='170' y='290' width='30' height='95'/%3E%3Crect x='220' y='310' width='28' height='90'/%3E%3Crect x='280' y='280' width='35' height='110'/%3E%3Crect x='340' y='320' width='25' height='80'/%3E%3Crect x='50' y='440' width='30' height='100'/%3E%3Crect x='110' y='460' width='35' height='95'/%3E%3Crect x='170' y='430' width='28' height='110'/%3E%3Crect x='230' y='450' width='32' height='100'/%3E%3Crect x='290' y='440' width='30' height='90'/%3E%3Crect x='340' y='460' width='28' height='85'/%3E%3C/g%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 600px auto;
-  opacity: 0.6;
-  mix-blend-mode: multiply;
+  background: linear-gradient(
+    135deg,
+    rgba(214, 234, 216, 0.55) 0%,
+    rgba(244, 234, 216, 0.40) 40%,
+    rgba(90, 120, 216, 0.30) 100%
+  );
 }
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 1200px;
+  max-width: 900px;
   animation: fadeUp 1.2s ease both;
 }
 .hero-script {
+  /* The text "Vivaldi" remains in the DOM for SEO/accessibility,
+     but visually replaced by the hand-painted PNG */
   font-family: var(--font-display);
   font-size: clamp(4.5rem, 14vw, 11rem);
-  color: var(--ink);
   line-height: 0.85;
   margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
   position: relative;
   display: inline-block;
+  /* Hide the text, replace with image */
+  color: transparent;
+  background-image: url('vivaldi-title.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  /* Image is ~2.44:1 (1400×575). Width-driven; height follows aspect-ratio. */
+  width: clamp(280px, 50vw, 700px);
+  aspect-ratio: 1400 / 575;
+  height: auto;
+  user-select: none;
 }
 .hero-script::after {
-  content: '';
-  display: block;
-  width: 60%;
-  height: 2px;
-  background: var(--ink);
-  margin: 0.5rem auto 0;
+  display: none;
 }
 .hero h1 {
-  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  font-family: var(--font-title);
+  font-weight: 200; /* Archivo Black is only weight 200 (it's already very heavy) */
+  font-size: clamp(2.5rem, 7vw, 6rem);
   color: var(--ink);
   margin: 1rem 0 0.5rem;
   letter-spacing: -0.02em;
 }
 .hero-subtitle {
-  font-family: var(--font-heading);
+  font-family: var(--font-brand);
+  font-weight: 700;
   font-size: clamp(1.1rem, 3vw, 1.8rem);
   font-weight: 500;
   color: var(--charcoal);
   margin-bottom: 1.5rem;
 }
 .hero-meta {
-  font-family: var(--font-heading);
-  font-size: 1rem;
+  font-family: var(--font-eyebrow);
+  font-size: clamp(0.95rem, 1.4vw, 1.25rem);
   letter-spacing: 0.28em;
   color: var(--summer-deep);
   text-transform: uppercase;
-  font-weight: 800;
+  font-weight: 600;
   margin: 2rem 0 1rem;
 }
 .hero-tagline {
   font-family: var(--font-body);
   font-style: italic;
-  font-size: clamp(1.4rem, 2vw, 1.35rem);
-  color: var(--ink-soft);
+  font-size: clamp(1.1rem, 1.5vw, 1.5rem);
+  font-weight: 200;
+  color: var(--charcoal);
   max-width: 640px;
   margin: 1.5rem auto 2.5rem;
+}
+/* Larger eyebrow only inside the hero */
+.hero .eyebrow {
+  font-size: clamp(0.95rem, 1.4vw, 1.25rem);
+  letter-spacing: 0.3em;
+  margin-bottom: 1.5rem;
 }
 
 /* --- BUTTONS --- */
@@ -484,6 +508,8 @@ em { font-style: italic; color: var(--charcoal); }
   letter-spacing: 0.1em;
 }
 .event-city {
+  font-family: var(--font-names);
+  font-weight: 600;
   font-family: var(--font-heading);
   font-size: 0.72rem;
   font-weight: 700;
@@ -493,6 +519,8 @@ em { font-style: italic; color: var(--charcoal); }
   margin-bottom: 0.3rem;
 }
 .event-venue {
+  font-family: var(--font-names);
+  font-weight: 600;
   font-size: 1.05rem;
   color: var(--ink);
   font-weight: 500;
@@ -524,6 +552,8 @@ em { font-style: italic; color: var(--charcoal); }
   box-shadow: var(--shadow-soft);
 }
 .musician-name {
+  font-family: var(--font-brand);
+  font-weight: 700;
   font-family: var(--font-heading);
   font-size: 1.4rem;
   font-weight: 800;
@@ -569,6 +599,10 @@ em { font-style: italic; color: var(--charcoal); }
 .composer-card:hover {
   border-color: var(--winter-deep);
   background: rgba(138, 163, 184, 0.14);
+}
+.composer-card h3 {
+  font-family: var(--font-names);
+  font-weight: 500;
 }
 .composer-card .name {
   font-family: var(--font-heading);
@@ -704,7 +738,7 @@ em { font-style: italic; color: var(--charcoal); }
   line-height: 0.85;
   margin-bottom: 0.5rem;
 }
-.page-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+.page-hero h1 { font-family: var(--font-title); font-weight: 200; font-size: clamp(2rem, 5vw, 3.5rem); }
 .page-hero .subtitle { font-style: italic; color: var(--charcoal); margin-top: 1rem; font-size: 1.15rem; max-width: 640px; margin-left: auto; margin-right: auto; }
 
 /* --- VENUE LIST WITH PHOTOS PLACEHOLDER --- */
