@@ -6,6 +6,7 @@
 
 /* --- FONTS --- */
 @import url('https://fonts.googleapis.com/css2?family=Italianno&family=Archivo+Black&family=Montserrat:wght@400;500;600;700;800&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kolker+Brush&display=swap');
 
 /* --- CSS VARIABLES --- */
 :root {
@@ -131,8 +132,8 @@ em { font-style: italic; color: var(--charcoal); }
 
 .script {
   font-family: var(--font-display);
-  font-weight: 200;
-  font-style: italic;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .eyebrow {
@@ -238,6 +239,17 @@ em { font-style: italic; color: var(--charcoal); }
   letter-spacing: 0;
   margin-bottom: -0.2rem;
   line-height: 1;
+  /* Hide the text, replace with image */
+  color: transparent;
+  background-image: url('vivaldi-title.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  /* Image is ~2.44:1 (1400×575). Width-driven; height follows aspect-ratio. */
+  width: clamp(40px, 8vw, 80px);
+  aspect-ratio: 1400 / 575;
+  height: auto;
+  user-select: none;
 }
 
 .site-nav ul { list-style: none; display: flex; gap: 0.25rem; }
@@ -273,6 +285,31 @@ em { font-style: italic; color: var(--charcoal); }
   background: var(--ink);
   transition: var(--transition);
 }
+
+.header-social {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1.5rem;
+}
+.header-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid rgba(26, 22, 18, 0.15);
+  transition: var(--transition);
+}
+.header-social a:hover {
+  color: var(--summer-deep);
+  border-color: var(--summer-deep);
+  background: rgba(214, 106, 63, 0.08);
+}
+.header-social svg { display: block; }
 
 @media (max-width: 900px) {
   .hamburger { display: flex; }
@@ -540,16 +577,20 @@ em { font-style: italic; color: var(--charcoal); }
 @media (max-width: 700px) { .musician-grid { grid-template-columns: 1fr; } }
 
 .musician-card {
+  display: block;
   background: rgba(250, 243, 227, 0.7);
   border: 1px solid var(--line);
   padding: 2.2rem;
   transition: all var(--transition);
   position: relative;
+  color: inherit;
+  text-decoration: none;
 }
 .musician-card:hover {
   border-color: var(--autumn);
   transform: translateY(-3px);
   box-shadow: var(--shadow-soft);
+  text-decoration: none;
 }
 .musician-name {
   font-family: var(--font-brand);
@@ -590,15 +631,19 @@ em { font-style: italic; color: var(--charcoal); }
 @media (max-width: 500px) { .composer-grid { grid-template-columns: 1fr; } }
 
 .composer-card {
+  display: block;
   text-align: center;
   padding: 1.5rem 1rem;
   background: rgba(250, 243, 227, 0.5);
   border: 1px solid var(--line);
   transition: all var(--transition);
+  color: inherit;
+  text-decoration: none;
 }
 .composer-card:hover {
   border-color: var(--winter-deep);
   background: rgba(138, 163, 184, 0.14);
+  text-decoration: none;
 }
 .composer-card h3 {
   font-family: var(--font-names);
@@ -768,6 +813,111 @@ em { font-style: italic; color: var(--charcoal); }
 }
 .venue-item .loc { font-size: 0.92rem; color: var(--warm-grey); }
 
+/* --- PROGRAM LIST (compact, About page) --- */
+.program-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+.program-list li {
+  display: grid;
+  grid-template-columns: 130px 160px 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+  transition: background var(--transition);
+}
+.program-list li:hover {
+  background: rgba(214, 106, 63, 0.05);
+}
+.program-date {
+  font-family: var(--font-eyebrow);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--summer-deep);
+}
+.program-city {
+  font-family: var(--font-names);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.program-venue {
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  font-style: italic;
+}
+@media (max-width: 600px) {
+  .program-list li {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: 1rem 0.25rem;
+  }
+}
+
+/* --- PROFILE PAGES (musicians, composers) --- */
+.profile-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-bottom: 3rem;
+}
+.profile-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: rgba(250, 243, 227, 0.7);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.profile-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.profile-photo-placeholder {
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-eyebrow);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  background: rgba(244, 234, 216, 0.7);
+}
+.profile-bio p {
+  margin-bottom: 1.0rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--charcoal);
+}
+.profile-bio p:first-of-type {
+  font-size: 1.0rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+.back-link {
+  margin-top: 2rem;
+}
+@media (max-width: 700px) {
+  .profile-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .profile-photo {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+}
+
 /* --- PARTNERS --- */
 .partners {
   margin-top: 4rem;
@@ -800,12 +950,35 @@ em { font-style: italic; color: var(--charcoal); }
   margin: 1.5rem auto 0;
   opacity: 0.95;
   transition: opacity var(--transition);
-  /* Logos are full-color on warm cream background — gentle blend */
-  mix-blend-mode: multiply;
+  /* Logos use real PNG transparency, no blend mode needed */
 }
 .partner-logos:hover { opacity: 1; }
 
 .partner-logos--narrow { max-width: 720px; }
+
+/* Single standalone logo (e.g. Kitharalogos) — smaller than partner strips */
+.partner-logos--logo {
+  max-width: 220px;
+  margin: 1rem auto 0;   /* centered */
+}
+
+/* Small badge for self-contained logos (e.g. AFCN, which carries its own background) */
+.logo-badge {
+  display: block;
+  margin: 1rem auto 0;   /* centered */
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid rgba(26, 22, 18, 0.08);
+  width: fit-content;
+}
+.logo-badge img {
+  display: block;
+  width: 100%;
+  max-width: 160px;
+  height: auto;
+}
+.logo-badge--dark { background: var(--ink); }
+.logo-badge--light { background: #ffffff; }
 
 /* --- FOOTER --- */
 .site-footer {
@@ -841,6 +1014,17 @@ em { font-style: italic; color: var(--charcoal); }
   display: block;
   line-height: 1;
   margin-bottom: -0.2rem;
+   /* Hide the text, replace with image */
+  color: transparent;
+  background-image: url('vivaldi-title.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  /* Image is ~2.44:1 (1400×575). Width-driven; height follows aspect-ratio. */
+  width: clamp(40px, 8vw, 80px);
+  aspect-ratio: 1400 / 575;
+  height: auto;
+  user-select: none;
 }
 .footer-brand p { font-size: 0.92rem; color: var(--charcoal); line-height: 1.65; margin-top: 0.8rem; }
 .footer-col h4 {
