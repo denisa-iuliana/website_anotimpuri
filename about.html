@@ -208,6 +208,7 @@
             <li><a href="index.html#interpreti">Interpreți</a></li>
             <li><a href="index.html#compozitori">Compozitori</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <li><a href="confidentialitate.html">Politica de confidențialitate</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -226,26 +227,6 @@
     </div>
   </footer>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const nav = document.getElementById('main-nav');
-    hamburger.addEventListener('click', () => nav.classList.toggle('open'));
-
-    // close the mobile menu after tapping any nav link
-    nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => nav.classList.remove('open'));
-    });
-
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    reveals.forEach(el => observer.observe(el));
-  </script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>
