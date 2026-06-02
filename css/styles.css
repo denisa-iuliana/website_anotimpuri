@@ -138,7 +138,7 @@ em { font-style: italic; color: var(--charcoal); }
 .eyebrow {
   display: inline-block;
   font-family: var(--font-eyebrow);
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--summer-deep);
@@ -771,9 +771,9 @@ em { font-style: italic; color: var(--charcoal); }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 60% at 25% 50%, rgba(138, 163, 184, 0.35) 0%, transparent 60%),
-    radial-gradient(ellipse 55% 55% at 75% 50%, rgba(90, 120, 145, 0.25) 0%, transparent 60%),
-    radial-gradient(ellipse 55% 55% at 50% 80%, rgba(214, 106, 63, 0.35) 0%, transparent 60%);
+    radial-gradient(ellipse 70% 60% at 25% 50%, rgba(120, 157, 187, 0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 55% at 75% 50%, rgba(90, 120, 145, 0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 55% at 50% 80%, rgba(214, 106, 63, 0.35) 0%, transparent 60%);
 }
 .page-hero .script {
   font-size: clamp(3rem, 7vw, 5.5rem);

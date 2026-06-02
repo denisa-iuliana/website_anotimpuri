@@ -95,7 +95,7 @@
               <textarea id="mesaj" name="mesaj" placeholder="Scrie aici mesajul tău..."></textarea>
             </div>
 
-            <button type="button" class="btn btn--filled" onclick="alert('Funcționalitatea de trimitere va fi conectată ulterior. Între timp, ne poți scrie direct la kitharalogos@gmail.com');">
+            <button type="button" class="btn btn--filled" id="send-btn">
               Trimite mesajul
             </button>
           </div>
@@ -223,6 +223,31 @@
     const hamburger = document.getElementById('hamburger');
     const nav = document.getElementById('main-nav');
     hamburger.addEventListener('click', () => nav.classList.toggle('open'));
+
+    const subjectLabels = {
+      presa: 'Solicitare de presă',
+      rezervari: 'Rezervări concert',
+      parteneriat: 'Propunere de parteneriat',
+      general: 'Întrebare generală',
+      altul: 'Altul'
+    };
+    document.getElementById('send-btn').addEventListener('click', () => {
+      const nume = document.getElementById('nume').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subiect = document.getElementById('subiect').value;
+      const mesaj = document.getElementById('mesaj').value.trim();
+
+      const subject = 'Anotimpuri — ' + (subjectLabels[subiect] || 'Mesaj');
+      const body =
+        'Nume: ' + nume + '\n' +
+        'Email: ' + email + '\n' +
+        'Subiect: ' + (subjectLabels[subiect] || subiect) + '\n\n' +
+        mesaj;
+
+      window.location.href = 'mailto:kitharalogos@gmail.com'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(body);
+    });
 
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
