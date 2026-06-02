@@ -617,6 +617,8 @@ em { font-style: italic; color: var(--charcoal); }
   font-size: 1rem;
   color: var(--charcoal);
   line-height: 1.65;
+  text-align: justify;
+  text-justify: auto;
 }
 
 /* --- COMPOSERS / SMALL CARDS --- */
@@ -655,7 +657,12 @@ em { font-style: italic; color: var(--charcoal); }
 }
 
 /* --- ABOUT / TEXT BLOCKS --- */
-.about-text { font-size: 1.15rem; line-height: 1.85; color: var(--ink-soft); }
+.about-text { 
+  font-size: 1.15rem; 
+  line-height: 1.85; 
+  color: var(--ink-soft);
+  text-align: justify;
+ }
 .about-text p:first-of-type::first-letter {
   font-family: var(--font-display);
   font-size: 4.5rem;
