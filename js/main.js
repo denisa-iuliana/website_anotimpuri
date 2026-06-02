@@ -8,6 +8,7 @@
   'use strict';
 
   var GA_ID = 'G-PZB8WGSLP4';
+  var PIXEL_ID = '309668729722718';
   var CONSENT_KEY = 'anotimpuri_consent'; // 'granted' | 'denied'
 
   /* ---------- 1. MENIU MOBIL ---------- */
@@ -85,6 +86,33 @@
     window.gtag('config', GA_ID, { anonymize_ip: true });
   }
 
+  /* ---------- 4b. META PIXEL (Facebook) — se încarcă DOAR după accept ---------- */
+  var pixelLoaded = false;
+  function loadPixel() {
+    if (pixelLoaded) return;
+    pixelLoaded = true;
+
+    // Codul standard Meta Pixel
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s);
+    }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
+    window.fbq('init', PIXEL_ID);
+    window.fbq('track', 'PageView');
+  }
+
+  // Pornește toate instrumentele de urmărire după consimțământ.
+  function loadTrackers() {
+    loadGA();
+    loadPixel();
+  }
+
   /* ---------- 5. URMĂRIREA CLICK-URILOR PE LINK-URI ---------- */
   // Se trimite un eveniment către Google Analytics doar dacă acesta a fost activat.
   document.querySelectorAll('a').forEach(function (link) {
@@ -141,8 +169,9 @@
     banner.setAttribute('role', 'dialog');
     banner.setAttribute('aria-label', 'Notificare cookie-uri');
     banner.innerHTML =
-      '<p>Folosim cookie-uri de analiză (Google Analytics) pentru a înțelege cum este ' +
-      'utilizat site-ul. Acestea sunt opționale și se activează doar cu acordul tău. ' +
+      '<p>Folosim cookie-uri de analiză (Google Analytics) și de marketing (Meta Pixel ' +
+      '/ Facebook) pentru a înțelege cum este utilizat site-ul și a măsura promovarea. ' +
+      'Acestea sunt opționale și se activează doar cu acordul tău. ' +
       'Vezi <a href="confidentialitate.html">Politica de confidențialitate</a>.</p>' +
       '<div class="cc-actions">' +
       '<button type="button" class="cc-btn cc-btn--reject">Refuz</button>' +
@@ -153,7 +182,7 @@
     banner.querySelector('.cc-btn--accept').addEventListener('click', function () {
       try { localStorage.setItem(CONSENT_KEY, 'granted'); } catch (e) {}
       removeBanner();
-      loadGA();
+      loadTrackers();
     });
     banner.querySelector('.cc-btn--reject').addEventListener('click', function () {
       try { localStorage.setItem(CONSENT_KEY, 'denied'); } catch (e) {}
@@ -183,7 +212,7 @@
     var choice = null;
     try { choice = localStorage.getItem(CONSENT_KEY); } catch (e) {}
     if (choice === 'granted') {
-      loadGA();
+      loadTrackers();
     } else if (!choice) {
       showBanner();
     }
