@@ -407,12 +407,15 @@
   </footer>
 
   <script>
-    // Mobile nav
     const hamburger = document.getElementById('hamburger');
     const nav = document.getElementById('main-nav');
     hamburger.addEventListener('click', () => nav.classList.toggle('open'));
 
-    // Scroll reveal
+    // close the mobile menu after tapping any nav link
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => nav.classList.remove('open'));
+    });
+
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {

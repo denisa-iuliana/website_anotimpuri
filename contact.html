@@ -224,6 +224,11 @@
     const nav = document.getElementById('main-nav');
     hamburger.addEventListener('click', () => nav.classList.toggle('open'));
 
+    // close the mobile menu after tapping any nav link
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => nav.classList.remove('open'));
+    });
+
     const subjectLabels = {
       presa: 'Solicitare de presă',
       rezervari: 'Rezervări concert',
