@@ -12,13 +12,14 @@ Quartet — a series of 10 concerts in heritage venues across Romania, July–Au
 
 A static, multi-page Romanian-language website with:
 
-| Page           | File                                                                                    | What it covers                                                                                  |
-| -------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Home           | `index.html`                                                                            | Hero, project intro, four seasons, concert list, musicians, composers, CTA, partners & sponsors |
-| About          | `about.html`                                                                            | Project concept, compact concert program, heritage venues list, composers grid                  |
-| Contact        | `contact.html`                                                                          | Contact form (with anti-spam) and contact details                                               |
-| Musicians (×4) | `dragos-ilie.html`, `costin-soare.html`, `dan-arhire.html`, `ioan-banescu.html`         | Individual artist pages with photo and full biography                                           |
-| Composers (×4) | `iuliana-ciocanea.html`, `oana-oltean.html`, `paul-pintilie.html`, `oana-vardianu.html` | Composer pages — placeholder bios, awaiting content                                             |
+| Page                  | File                                                                                    | What it covers                                                                                                          |
+| --------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Home                  | `index.html`                                                                            | Hero, project intro, four seasons, concert list, quartet group photo, musicians, composers, CTA, partners & sponsors    |
+| About                 | `about.html`                                                                            | Project concept, Romanian Guitar Quartet member bios, compact concert program, heritage venues list, partners & sponsors |
+| Contact               | `contact.html`                                                                          | Contact form (with anti-spam) and contact details                                                                       |
+| Privacy policy        | `confidentialitate.html`                                                                | Cookie policy and privacy/GDPR information                                                                              |
+| Musicians (×4)        | `dragos-ilie.html`, `costin-soare.html`, `dan-arhire.html`, `ioan-banescu.html`         | Individual artist pages with photo and full biography                                                                   |
+| Composers (×4)        | `iuliana-ciocanea.html`, `oana-oltean.html`, `paul-pintilie.html`, `oana-vardianu.html` | Composer pages with bios                                                                                                |
 
 All pages share the same header (logo, nav, social icons) and footer, defined inline
 in each HTML file. There is no build step or framework — these are plain HTML files
@@ -27,7 +28,7 @@ served directly.
 ## Tech stack
 
 - **HTML / CSS** — no JavaScript framework, no build tools
-- **Single stylesheet**: `css/styles.css` (~30 KB) using CSS custom properties for theming
+- **Single stylesheet**: `css/styles.css` using CSS custom properties for theming
 - **Hosting**: GitHub Pages, served from the `main` branch root
 - **Custom domain**: anotimpuri.com (registered via cyberfolks.ro, DNS records at cyberfolks)
 - **SSL**: Let's Encrypt cert auto-provisioned by GitHub Pages
@@ -41,6 +42,7 @@ served directly.
 ├── index.html
 ├── about.html
 ├── contact.html
+├── confidentialitate.html
 ├── dragos-ilie.html        ┐
 ├── costin-soare.html       │ musician profile pages
 ├── dan-arhire.html         │
@@ -49,20 +51,20 @@ served directly.
 ├── oana-oltean.html        │ composer profile pages
 ├── paul-pintilie.html      │
 ├── oana-vardianu.html      ┘
+├── CNAME                   (contains literally: anotimpuri.com — needed by GitHub Pages)
+├── README.md
 ├── css/
 │   └── styles.css
-├── images/
-│   ├── dragos-ilie.jpg, costin-soare.jpg, ...     (artist portraits, 4:5 ratio)
-│   ├── iuliana-ciocanea.jpg, oana-oltean.jpg, ... (composer portraits)
-│   ├── afcn.png, kitharalogos.png                 (partner logos)
-│   ├── parteneri.png, cu_sprijinul.png, parteneri_media.png (partner logo strips)
-│   ├── hero-poster.jpg                            (homepage hero background)
-│   ├── vivaldi-title.png                          (large brushy "Vivaldi" for hero)
-│   └── vivaldi-mark.png                           (small brushy "Vivaldi" for header/footer)
-├── apps-script.gs          (server-side contact form handler — deploy to Google Apps Script)
-├── INSTRUCTIONS-deploy.md  (one-time setup guide for the Apps Script)
-├── CNAME                   (contains literally: anotimpuri.com — needed by GitHub Pages)
-└── README.md
+└── images/
+    ├── dragos-ilie.jpg, costin-soare.jpg, ...      (original artist portraits)
+    ├── dragos-ilie2.jpg, costin-soare2.jpg, ...    (current artist portraits, 4:5 ratio — used by pages)
+    ├── grup1.jpg, grup2.jpg                         (Romanian Guitar Quartet group photos)
+    ├── iuliana-ciocanea.jpg, oana-oltean.jpg, ...  (composer portraits)
+    ├── afcn.png, kitharalogos.png                  (individual partner logos)
+    ├── parteneri2.png, cu_sprijinul2.png, parteneri_media2.png (partner logo strips)
+    ├── hero-poster.jpg                             (homepage hero background)
+    ├── vivaldi-title.png                           (large brushy "Vivaldi" for hero)
+    └── vivaldi-mark.png                            (small brushy "Vivaldi" for header/footer)
 ```
 
 ## Design system
@@ -104,8 +106,8 @@ comfortable reading lines). Stacks vertically on screens under 700px.
 
 ## Contact form & anti-spam
 
-The form on `contact.html` POSTs to a Google Apps Script web app endpoint. The Apps
-Script (`apps-script.gs`) validates the submission server-side and emails
+The form on `contact.html` POSTs to a Google Apps Script web app endpoint.
+The Apps Script validates the submission server-side and emails
 `kitharalogos@gmail.com` using `MailApp.sendEmail()`, with the visitor's email as
 Reply-To.
 
@@ -121,10 +123,9 @@ Reply-To.
 Server-side, the Apps Script also rejects messages with empty required fields,
 messages over 5000 characters, names over 200 characters, or emails without "@".
 
-**To activate the form**: follow `INSTRUCTIONS-deploy.md` to deploy the Apps Script
-as a web app (~5 minutes, one-time, free with any Google account), then paste the
-resulting URL into `contact.html` where it says
-`const ENDPOINT = 'https://script.google.com/macros/s/REPLACE_WITH_YOUR_WEB_APP_ID/exec';`.
+**To activate the form**: deploy the Apps Script as a web app (~5 minutes, one-time,
+free with any Google account), then paste the resulting URL into `contact.html` where
+it says `const ENDPOINT = 'https://script.google.com/macros/s/REPLACE_WITH_YOUR_WEB_APP_ID/exec';`.
 
 Until that URL is replaced, the form will show "Nu am putut trimite mesajul…" and
 suggest emailing directly.
@@ -187,11 +188,11 @@ hard-refresh (Ctrl+Shift+R) if changes don't appear.
 
 ## Adding new content
 
-**To update a musician's photo**: drop a JPG at `images/<musician-id>.jpg` (the
-filenames are lowercase, hyphen-separated: `dragos-ilie.jpg`, `costin-soare.jpg`,
-etc.). Aspect ratio should be roughly 4:5 (portrait orientation), at least 720px
-wide. The page has an `onerror` fallback that shows a "Foto" placeholder if the
-image is missing or named differently.
+**To update a musician's photo**: drop a JPG at `images/<musician-id>2.jpg` (the
+filenames are lowercase, hyphen-separated with a `2` suffix: `dragos-ilie2.jpg`,
+`costin-soare2.jpg`, etc.). Aspect ratio should be roughly 4:5 (portrait orientation),
+at least 720px wide. The page has an `onerror` fallback that shows a "Foto" placeholder
+if the image is missing or named differently.
 
 **To add a composer bio**: edit the corresponding HTML file
 (`iuliana-ciocanea.html`, `oana-oltean.html`, etc.). Find the `<div class="profile-bio">`
@@ -200,7 +201,7 @@ formatting pattern as the musician pages: `<strong>` for institutions and awards
 `<em>` for work titles, Romanian smart quotes (`„…"`), em-dashes (—).
 
 **To add a new partner logo strip**: drop a transparent PNG in `images/` and
-reference it from `index.html`'s partners section.
+reference it from the partners section in `index.html` or `about.html`.
 
 ## Browser support
 
