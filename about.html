@@ -18,12 +18,12 @@
       </a>
       <nav class="site-nav" id="main-nav">
         <ul>
-          <li><a href="index.html">Acasă</a></li>
-          <li><a href="about.html" class="active">Despre</a></li>
-          <li><a href="index.html#concerte">Program</a></li>
-          <li><a href="index.html#muzicieni">Interpreți</a></li>
-          <li><a href="index.html#compozitori">Compozitori</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="index.html" data-i18n="nav.home">Acasă</a></li>
+          <li><a href="about.html" class="active" data-i18n="nav.about">Despre</a></li>
+          <li><a href="index.html#concerte" data-i18n="nav.program">Program</a></li>
+          <li><a href="index.html#muzicieni" data-i18n="nav.performers">Interpreți</a></li>
+          <li><a href="index.html#compozitori" data-i18n="nav.composers">Compozitori</a></li>
+          <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
         </ul>
       </nav>
       <div class="header-social">
@@ -38,6 +38,10 @@
           </svg>
         </a>
       </div>
+      <div class="lang-switch" role="group" aria-label="Language / Limbă">
+        <button type="button" class="lang-btn active" data-lang="ro" aria-pressed="true">RO</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
       <button class="hamburger" id="hamburger" aria-label="Deschide meniul">
         <span></span><span></span><span></span>
       </button>
@@ -49,10 +53,10 @@
     <!-- PAGE HERO -->
     <section class="page-hero">
       <div class="container container--narrow">
-        <span class="eyebrow">Despre proiect</span>
-        <div class="script">Anotimpuri</div>
-        <h1>O punte între timpuri</h1>
-        <p class="subtitle">
+        <span class="eyebrow" data-i18n="hero.eyebrow">Despre proiect</span>
+        <div class="script" data-i18n="hero.script">Anotimpuri</div>
+        <h1 data-i18n="hero.h1">O punte între timpuri</h1>
+        <p class="subtitle" data-i18n="hero.subtitle">
           O călătorie muzicală prin spații de patrimoniu, unde anotimpurile au lăsat
           în ziduri ecouri proprii.
         </p>
@@ -63,22 +67,22 @@
     <section class="section">
       <div class="container container--narrow">
         <div class="about-text reveal">
-          <p>
+          <p data-i18n="concept.p1">
             Cum ar fi dacă 4 chitarişti ar reimagina şi reintepreta cele <strong>4 Anotimpuri de Vivaldi</strong>
              într-o formulă nouă, neobişnuită? Dacă sunteți curioși, în perioada <strong>25.07 – 9.08</strong>, vă invităm
-              la concertele din cadrul <em>Turneului „ANOTIMPURI”</em> pentru a-i asculta pe cei 4 chitarişti virtuozi din 
-              nou-înfiinţatul <strong>Romanian Guitar Quartet</strong>.  Vă veți bucura de o <em>premieră absolută</em> 
+              la concertele din cadrul <em>Turneului „ANOTIMPURI”</em> pentru a-i asculta pe cei 4 chitarişti virtuozi din
+              nou-înfiinţatul <strong>Romanian Guitar Quartet</strong>.  Vă veți bucura de o <em>premieră absolută</em>
               în spaţiul muzical românesc, într-un periplu estival prin câteva dintre cele mai frumoase edificii arhitectonice din ţară.
           </p>
 
-          <div class="quote-block">
-            <em>Asociaţia Culturală Kitharalogos</em> propune o călătorie muzicală – 
+          <div class="quote-block" data-i18n="concept.quote">
+            <em>Asociaţia Culturală Kitharalogos</em> propune o călătorie muzicală –
             10 concerte în spații de patrimoniu, unde anotimpurile — asemenea lucrărilor lui
             Vivaldi — au lăsat în ziduri ecouri de primăveri abia născute, de triluri limpezi
             de păsări, de furtuni trecătoare de vară și de ierni aspre.
           </div>
 
-          <p>
+          <p data-i18n="concept.p2">
             De la repere emblematice precum <strong>Castelul Peleș</strong>, <strong>Palatul
             Brukenthal</strong> sau <strong>Palatul Culturii din Iași</strong> la locuri mai
             puțin cunoscute — <strong>Bisericile fortificate din Cincșor și Moșna</strong>,
@@ -88,14 +92,14 @@
             iar spațiile prind viață în ritmul anotimpurilor.
           </p>
 
-          <p>
+          <p data-i18n="concept.p3">
             Demersul asociației îmbină o <em>abordare muzicală inedită</em> cu
             <em>promovarea și punerea în valoare a unor edificii cu valoare</em> arhitectonică și
             istorică — atât cele din circuitul turistic, cât și locuri cu mai puțină
             vizibilitate, care au nevoie de a fi descoperite.
           </p>
 
-          <p>
+          <p data-i18n="concept.p4">
             Astfel, pentru patru dintre aceste spații, <strong>doi tineri cineaști</strong>
             vor realiza o serie de documentare, iar <strong>4 tineri compozitori</strong>,
             selectați în urma unui apel național, vor dedica o scurtă lucrare pentru cvartet de
@@ -110,26 +114,26 @@
     <section class="section section--cream">
       <div class="container container--narrow">
         <div class="section-header reveal">
-          <span class="eyebrow">Cei patru chitariști</span>
+          <span class="eyebrow" data-i18n="perf.eyebrow">Cei patru chitariști</span>
           <h2>Romanian Guitar Quartet</h2>
         </div>
         <div class="about-text reveal">
-          <p>
+          <p data-i18n="perf.dragos">
             <strong>Dragoș Ilie</strong> — cel mai titrat și apreciat tânăr chitarist român,
             cu premii la cele mai importante concursuri chitaristice la nivel internațional,
             partenerul de duo al violonistului Alexandru Tomescu.
           </p>
-          <p>
+          <p data-i18n="perf.costin">
             <strong>Costin Soare</strong> — unul dintre cei mai apreciați și activi muzicieni
             români, cu 15 turnee naționale și internaționale la activ, 4 CD-uri în portofoliu,
             care a colaborat cu nume importante ale scenei muzicale de la noi.
           </p>
-          <p>
+          <p data-i18n="perf.dan">
             <strong>Dan Alexandru Arhire</strong> — chitarist și cadru universitar ieșean,
             cu multiple apariții solistice pe scenele Filarmonicilor din țară și autor a două
             materiale discografice.
           </p>
-          <p>
+          <p data-i18n="perf.ioan">
             <strong>Ioan Bănescu</strong> — recent nominalizat la categoria <em>„Interpretul
             anului"</em> în cadrul Galei UCIMR, chitarist de forță cu o activitate intensă
             atât în zona solistică, cât și în cea camerală.
@@ -142,21 +146,21 @@
     <section class="section">
       <div class="container container--narrow">
         <div class="section-header reveal">
-          <span class="eyebrow">Calendarul turneului</span>
-          <h2>Program</h2>
-          <p>Cele zece concerte ale turneului, în ordine cronologică.</p>
+          <span class="eyebrow" data-i18n="prog.eyebrow">Calendarul turneului</span>
+          <h2 data-i18n="prog.h2">Program</h2>
+          <p data-i18n="prog.intro">Cele zece concerte ale turneului, în ordine cronologică.</p>
         </div>
         <ol class="program-list reveal">
-          <li><span class="program-date">25 iulie</span><span class="program-city">Sinaia</span><span class="program-venue">Castelul Peleș · Sala Mare de Concerte</span></li>
-          <li><span class="program-date">26 iulie</span><span class="program-city">Sibiu</span><span class="program-venue">Muzeul Brukenthal</span></li>
-          <li><span class="program-date">27 iulie</span><span class="program-city">Mediaș</span><span class="program-venue">Biserica Evanghelică „Sf. Margareta"</span></li>
-          <li><span class="program-date">31 iulie</span><span class="program-city">Biertan</span><span class="program-venue">Biserica Fortificată din Biertan</span></li>
-          <li><span class="program-date">1 august</span><span class="program-city">Cincșor</span><span class="program-venue">Biserica Fortificată din Cincșor</span></li>
-          <li><span class="program-date">2 august</span><span class="program-city">Râșnov</span><span class="program-venue">Biserica Evanghelică din Râșnov</span></li>
-          <li><span class="program-date">4 august</span><span class="program-city">Moșna</span><span class="program-venue">Biserica Fortificată din Moșna</span></li>
-          <li><span class="program-date">7 august</span><span class="program-city">Rădăuți</span><span class="program-venue">Sinagoga Mare din Rădăuți</span></li>
-          <li><span class="program-date">8 august</span><span class="program-city">Vatra Dornei</span><span class="program-venue">Cazinoul din Vatra Dornei</span></li>
-          <li><span class="program-date">9 august</span><span class="program-city">Iași</span><span class="program-venue">Palatul Culturii · Sala Voievozilor</span></li>
+          <li><span class="program-date" data-i18n="prog.d1">25 iulie</span><span class="program-city">Sinaia</span><span class="program-venue" data-i18n="prog.v1">Castelul Peleș · Sala Mare de Concerte</span><a href="mailto:peles.ro@gmail.com?subject=Rezervare concert din 25.07&body=Aș dori să fac o rezervare pentru concertul Anotimpuri din data de 25.07." class="btn btn--small btn--coral" data-i18n="prog.book1">Rezervă via email</a></li>
+          <li><span class="program-date" data-i18n="prog.d2">26 iulie</span><span class="program-city">Sibiu</span><span class="program-venue" data-i18n="prog.v2">Muzeul Brukenthal</span></li>
+          <li><span class="program-date" data-i18n="prog.d3">27 iulie</span><span class="program-city">Mediaș</span><span class="program-venue" data-i18n="prog.v3">Biserica Evanghelică „Sf. Margareta"</span></li>
+          <li><span class="program-date" data-i18n="prog.d4">31 iulie</span><span class="program-city">Biertan</span><span class="program-venue" data-i18n="prog.v4">Biserica Fortificată din Biertan</span></li>
+          <li><span class="program-date" data-i18n="prog.d5">1 august</span><span class="program-city">Cincșor</span><span class="program-venue" data-i18n="prog.v5">Biserica Fortificată din Cincșor</span></li>
+          <li><span class="program-date" data-i18n="prog.d6">2 august</span><span class="program-city">Râșnov</span><span class="program-venue" data-i18n="prog.v6">Biserica Evanghelică din Râșnov</span></li>
+          <li><span class="program-date" data-i18n="prog.d7">4 august</span><span class="program-city">Moșna</span><span class="program-venue" data-i18n="prog.v7">Biserica Fortificată din Moșna</span></li>
+          <li><span class="program-date" data-i18n="prog.d8">7 august</span><span class="program-city">Rădăuți</span><span class="program-venue" data-i18n="prog.v8">Sinagoga Mare din Rădăuți</span></li>
+          <li><span class="program-date" data-i18n="prog.d9">8 august</span><span class="program-city">Vatra Dornei</span><span class="program-venue" data-i18n="prog.v9">Cazinoul din Vatra Dornei</span></li>
+          <li><span class="program-date" data-i18n="prog.d10">9 august</span><span class="program-city">Iași</span><span class="program-venue" data-i18n="prog.v10">Palatul Culturii · Sala Voievozilor</span></li>
         </ol>
       </div>
     </section>
@@ -165,49 +169,49 @@
     <section class="section section--warm">
       <div class="container container--narrow">
         <div class="section-header reveal">
-          <span class="eyebrow">Spații de patrimoniu</span>
-          <h2>Cele 10 locuri</h2>
+          <span class="eyebrow" data-i18n="ven.eyebrow">Spații de patrimoniu</span>
+          <h2 data-i18n="ven.h2">Cele 10 locuri</h2>
         </div>
         <div class="venue-list reveal">
           <div class="venue-item">
-            <div class="name">Castelul Peleș</div>
-            <div class="loc">Sinaia · Sala Mare de Concerte</div>
+            <div class="name" data-i18n="ven.n1">Castelul Peleș</div>
+            <div class="loc" data-i18n="ven.l1">Sinaia · Sala Mare de Concerte</div>
           </div>
           <div class="venue-item">
-            <div class="name">Muzeul Brukenthal</div>
-            <div class="loc">Sibiu</div>
+            <div class="name" data-i18n="ven.n2">Muzeul Brukenthal</div>
+            <div class="loc" data-i18n="ven.l2">Sibiu</div>
           </div>
           <div class="venue-item">
-            <div class="name">Biserica Evanghelică „Sf. Margareta"</div>
-            <div class="loc">Mediaș</div>
+            <div class="name" data-i18n="ven.n3">Biserica Evanghelică „Sf. Margareta"</div>
+            <div class="loc" data-i18n="ven.l3">Mediaș</div>
           </div>
           <div class="venue-item">
-            <div class="name">Biserica Fortificată</div>
-            <div class="loc">Biertan</div>
+            <div class="name" data-i18n="ven.n4">Biserica Fortificată</div>
+            <div class="loc" data-i18n="ven.l4">Biertan</div>
           </div>
           <div class="venue-item">
-            <div class="name">Biserica Fortificată</div>
-            <div class="loc">Cincșor</div>
+            <div class="name" data-i18n="ven.n5">Biserica Fortificată</div>
+            <div class="loc" data-i18n="ven.l5">Cincșor</div>
           </div>
           <div class="venue-item">
-            <div class="name">Biserica Evanghelică</div>
-            <div class="loc">Râșnov</div>
+            <div class="name" data-i18n="ven.n6">Biserica Evanghelică</div>
+            <div class="loc" data-i18n="ven.l6">Râșnov</div>
           </div>
           <div class="venue-item">
-            <div class="name">Biserica Fortificată</div>
-            <div class="loc">Moșna</div>
+            <div class="name" data-i18n="ven.n7">Biserica Fortificată</div>
+            <div class="loc" data-i18n="ven.l7">Moșna</div>
           </div>
           <div class="venue-item">
-            <div class="name">Sinagoga Mare</div>
-            <div class="loc">Rădăuți</div>
+            <div class="name" data-i18n="ven.n8">Sinagoga Mare</div>
+            <div class="loc" data-i18n="ven.l8">Rădăuți</div>
           </div>
           <div class="venue-item">
-            <div class="name">Cazinoul Băilor</div>
-            <div class="loc">Vatra Dornei</div>
+            <div class="name" data-i18n="ven.n9">Cazinoul Băilor</div>
+            <div class="loc" data-i18n="ven.l9">Vatra Dornei</div>
           </div>
           <div class="venue-item">
-            <div class="name">Palatul Culturii · Sala Voievozilor</div>
-            <div class="loc">Iași</div>
+            <div class="name" data-i18n="ven.n10">Palatul Culturii · Sala Voievozilor</div>
+            <div class="loc" data-i18n="ven.l10">Iași</div>
           </div>
         </div>
       </div>
@@ -221,8 +225,8 @@
         <div class="partners reveal" style="margin-top:0; border-top:none; padding-top:0;">
           
         <div class="section-header reveal"> </div>
-          <h4>Organizator</h4>
-          <p style="font-family:var(--font-heading); font-weight:700; color:var(--ink); font-size:1.05rem;">
+          <h4 data-i18n="part.organizer">Organizator</h4>
+          <p style="font-family:var(--font-heading); font-weight:700; color:var(--ink); font-size:1.05rem;" data-i18n="part.organizerName">
             Asociația Culturală KITHARALOGOS
           </p>
           <img src="images/kitharalogos.png" alt="Logo Kitharalogos" class="partner-logos partner-logos--logo" loading="lazy">
@@ -233,7 +237,7 @@
         <div class="section-header reveal"> </div>
 
         <div class="partners reveal">
-          <h4>Parteneri</h4>
+          <h4 data-i18n="part.partners">Parteneri</h4>
           <p>
             Festivalul și Academia Icon Arts Transilvania · Asociația UCIMR (Uniunea de Creație
             Interpretativă a Muzicienilor din România) · Muzeul Național Peleș · Muzeul Național
@@ -246,7 +250,7 @@
         </div>
 
         <div class="partners reveal">
-          <h4>Cu sprijinul</h4>
+          <h4 data-i18n="part.support">Cu sprijinul</h4>
           <p>
             Tecnoservice Equipment SRL · Savvy Finance · Ansett Logistics · D'Addario · Oculooptic SRL
           </p>
@@ -254,7 +258,7 @@
         </div>
 
         <div class="partners reveal">
-          <h4>Parteneri media</h4>
+          <h4 data-i18n="part.media">Parteneri media</h4>
           <p>
             TVR Cultural · TVR Iași · Radio România Muzical · Radio România Cultural · Radio
             România Iași · Radio România Brașov · RFI România · Radio Trinitas · Radio Clasic ·
@@ -265,14 +269,14 @@
         </div>
 
         <div class="partners reveal">
-          <h4>Finanțator</h4>
-          <p style="font-family:var(--font-heading); font-weight:700; color:var(--ink); font-size:1.05rem;">
+          <h4 data-i18n="part.financer">Finanțator</h4>
+          <p style="font-family:var(--font-heading); font-weight:700; color:var(--ink); font-size:1.05rem;" data-i18n="part.financerName">
             Administrația Fondului Cultural Național
           </p>
           <figure class="logo-badge logo-badge--light">
             <img src="images/afcn.png" alt="Administrația Fondului Cultural Național" loading="lazy">
           </figure>
-          <p style="font-size:0.88rem; margin-top:2rem; margin-bottom: 0.3rem; color:var(--warm-grey); font-style:italic;">
+          <p style="font-size:0.88rem; margin-top:2rem; margin-bottom: 0.3rem; color:var(--warm-grey); font-style:italic;" data-i18n="part.disclaimer">
             Proiectul nu reprezintă în mod necesar poziția Administrației Fondului Cultural Național.
             AFCN nu este responsabilă de conținutul proiectului sau de modul în care rezultatele
             proiectului pot fi folosite. Acestea sunt în întregime responsabilitatea beneficiarului finanțării.
@@ -292,24 +296,24 @@
             <span class="script-mark">Vivaldi</span>
             Anotimpuri
           </span>
-          <p>
+          <p data-i18n="foot.brandInfo">
             Romanian Guitar Quartet · Turneu Național 2026<br>
             Organizator: Asociația Culturală Kitharalogos
           </p>
-          <p style="font-size:0.82rem; margin-top:1rem; color:var(--warm-grey);">
+          <p style="font-size:0.82rem; margin-top:1rem; color:var(--warm-grey);" data-i18n="foot.cofinance">
             Proiect cultural co-finanțat de Administrația Fondului Cultural Național.
           </p>
         </div>
         <div class="footer-col">
-          <h4>Navigare</h4>
+          <h4 data-i18n="foot.navHead">Navigare</h4>
           <ul>
-            <li><a href="index.html">Acasă</a></li>
-            <li><a href="about.html">Despre proiect</a></li>
-            <li><a href="index.html#concerte">Program</a></li>
-            <li><a href="index.html#interpreti">Interpreți</a></li>
-            <li><a href="index.html#compozitori">Compozitori</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="confidentialitate.html">Politica de confidențialitate</a></li>
+            <li><a href="index.html" data-i18n="foot.navHome">Acasă</a></li>
+            <li><a href="about.html" data-i18n="foot.navAbout">Despre proiect</a></li>
+            <li><a href="index.html#concerte" data-i18n="foot.navProgram">Program</a></li>
+            <li><a href="index.html#interpreti" data-i18n="foot.navPerformers">Interpreți</a></li>
+            <li><a href="index.html#compozitori" data-i18n="foot.navComposers">Compozitori</a></li>
+            <li><a href="contact.html" data-i18n="foot.navContact">Contact</a></li>
+            <li><a href="confidentialitate.html" data-i18n="foot.navPrivacy">Politica de confidențialitate</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -322,12 +326,13 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2026 Asociația Culturală Kitharalogos</span>
-        <span>Proiectul nu reprezintă în mod necesar poziţia Administrației Fondului Cultural Național. AFCN nu este responsabilă de conținutul proiectului sau de modul în care rezultatele proiectului pot fi folosite. Acestea sunt în întregime responsabilitatea beneficiarului finanțării.</span>
+        <span data-i18n="foot.copyright">© 2026 Asociația Culturală Kitharalogos</span>
+        <span data-i18n="foot.disclaimer">Proiectul nu reprezintă în mod necesar poziţia Administrației Fondului Cultural Național. AFCN nu este responsabilă de conținutul proiectului sau de modul în care rezultatele proiectului pot fi folosite. Acestea sunt în întregime responsabilitatea beneficiarului finanțării.</span>
       </div>
     </div>
   </footer>
 
+  <script src="js/i18n.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>
