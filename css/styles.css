@@ -855,12 +855,16 @@ em { font-style: italic; color: var(--charcoal); }
 }
 .program-list li {
   display: grid;
-  grid-template-columns: 130px 160px 1fr;
+  grid-template-columns: 130px 160px 1fr auto;
   gap: 1.5rem;
   align-items: baseline;
   padding: 1rem 0.5rem;
   border-bottom: 1px solid var(--line);
   transition: background var(--transition);
+}
+.program-list .btn--small {
+  justify-self: end;
+  align-self: center;
 }
 .program-list li:hover {
   background: rgba(214, 106, 63, 0.05);
@@ -889,6 +893,10 @@ em { font-style: italic; color: var(--charcoal); }
     grid-template-columns: 1fr;
     gap: 0.25rem;
     padding: 1rem 0.25rem;
+  }
+  .program-list .btn--small {
+    justify-self: start;
+    margin-top: 0.5rem;
   }
 }
 

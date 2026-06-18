@@ -24,6 +24,7 @@
 
     /* Hero */
     'hero.eyebrow': 'About the project',
+    'hero.script': 'Seasons',
     'hero.h1': 'A Bridge Across Time',
     'hero.subtitle': 'A musical journey through heritage sites, where history and the seasons echo within ancient walls.',
 
@@ -46,6 +47,7 @@
     'prog.h2': 'Concert schedule',
     'prog.intro': 'The ten tour dates, in chronological order.',
     'prog.d1': 'July 25', 'prog.v1': 'Peleș Castle · Great Concert Hall',
+    'prog.book1': 'Book via email',
     'prog.d2': 'July 26', 'prog.v2': 'Brukenthal Museum',
     'prog.d3': 'July 27', 'prog.v3': '“St. Margaret” Evangelical Church',
     'prog.d4': 'July 31', 'prog.v4': 'Biertan Fortified Church',
