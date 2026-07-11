@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd /d \"D:\\\\Projects\\\\website_ioni\")",
+      "Bash(dir /b)",
+      "Bash(cd /d \"C:\\\\Users\\\\denis\\\\Downloads\")",
+      "Bash(dir \"ABOUT THE PROJECT.docx\")",
+      "Read(//c/Users/denis/Downloads/**)",
+      "Bash(extract-text \"ABOUT THE PROJECT.docx\")",
+      "Read(//c/Users/denis/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/8f165e4e-8b61-4209-a3b2-ce8350213109/1882e1bc-e047-4eb7-84f5-25a500fc0371/skills/docx/**)",
+      "Bash(python scripts/office/unpack.py \"C:\\\\Users\\\\denis\\\\Downloads\\\\ABOUT THE PROJECT.docx\" /tmp/about_unpacked/)"
+    ]
+  }
+}

@@ -30,8 +30,8 @@
 
     /* Concept */
     'concept.p1': 'What happens when four virtuoso guitarists reimagine Vivaldi’s iconic <strong>Four Seasons</strong> in a completely fresh, unconventional format? Find out this summer, from <strong>July 25 to August 9</strong>, at the <em>“SEASONS” Tour</em>, featuring the newly formed <strong>Romanian Guitar Quartet</strong> — an absolute premiere on the Romanian music scene, a spectacular summer tour hosted by some of the country’s most breathtaking architectural landmarks.',
-    'concept.quote': 'Organized by the <em>Kitharalogos Cultural Association</em>, this musical odyssey spans 10 concerts across historic heritage sites. Here, much like in Vivaldi’s masterpiece, the changing seasons have left their mark on ancient stone — whispering tales of early spring, crisp birdsong, sudden summer storms and harsh winters.',
-    'concept.p2': 'The tour bridges past and present, bringing together world-famous landmarks like <strong>Peleș Castle</strong>, <strong>Brukenthal Palace</strong> and the <strong>Palace of Culture in Iași</strong>, alongside hidden gems waiting to be rediscovered — the <strong>fortified churches of Cincșor and Moșna</strong>, the <strong>Great Synagogue in Rădăuți</strong> or the <strong>historic Casino in Vatra Dornei</strong>. Within these walls, the warm textures of classical guitar breathe new life into history, moving to the rhythm of the seasons.',
+    'concept.quote': 'Organized by the <em>Kitharalogos Cultural Association</em>, this musical odyssey spans 9 concerts across historic heritage sites. Here, much like in Vivaldi’s masterpiece, the changing seasons have left their mark on ancient stone — whispering tales of early spring, crisp birdsong, sudden summer storms and harsh winters.',
+    'concept.p2': 'The tour bridges past and present, bringing together world-famous landmarks like <strong>Peleș Castle</strong>, <strong>Brukenthal Palace</strong> and the <strong>Palace of Culture in Iași</strong>, alongside hidden gems waiting to be rediscovered — the <strong>fortified church of Cincșor</strong>, the <strong>Great Synagogue in Rădăuți</strong> or the <strong>historic Casino in Vatra Dornei</strong>. Within these walls, the warm textures of classical guitar breathe new life into history, moving to the rhythm of the seasons.',
     'concept.p3': 'This initiative seamlessly blends a <em>pioneering musical concept</em> with the <em>preservation and promotion of buildings of architectural and historical value</em> — both those on the tourist circuit and lesser-known sites that deserve to be discovered.',
     'concept.p4': 'To deepen this connection, for four of these venues <strong>two young filmmakers</strong> will produce a documentary series, while <strong>four up-and-coming Romanian composers</strong>, selected through a national call, have each dedicated a short piece for guitar quartet and tape to one of them.',
 
@@ -45,7 +45,7 @@
     /* Program */
     'prog.eyebrow': 'Tour calendar',
     'prog.h2': 'Concert schedule',
-    'prog.intro': 'The ten tour dates, in chronological order.',
+    'prog.intro': 'The nine tour dates, in chronological order.',
     'prog.d1': 'July 25', 'prog.v1': 'Peleș Castle · Great Concert Hall',
     'prog.book1': 'Book via email',
     'prog.d2': 'July 26', 'prog.v2': 'Brukenthal Museum',
@@ -53,21 +53,19 @@
     'prog.d4': 'July 31', 'prog.v4': 'Biertan Fortified Church',
     'prog.d5': 'August 1', 'prog.v5': 'Cincșor Fortified Church',
     'prog.d6': 'August 2', 'prog.v6': 'Râșnov Evangelical Church',
-    'prog.d7': 'August 4', 'prog.v7': 'Moșna Fortified Church',
     'prog.d8': 'August 7', 'prog.v8': 'The Great Synagogue of Rădăuți',
     'prog.d9': 'August 8', 'prog.v9': 'The Historic Baths Casino',
     'prog.d10': 'August 9', 'prog.v10': 'Palace of Culture · Voivodes’ Hall',
 
     /* Spații de patrimoniu */
     'ven.eyebrow': 'Heritage venues',
-    'ven.h2': 'The 10 locations',
+    'ven.h2': 'The 9 locations',
     'ven.n1': 'Peleș Castle', 'ven.l1': 'Sinaia · Great Concert Hall',
     'ven.n2': 'Brukenthal Museum', 'ven.l2': 'Sibiu',
     'ven.n3': '“St. Margaret” Evangelical Church', 'ven.l3': 'Mediaș',
     'ven.n4': 'Fortified Church', 'ven.l4': 'Biertan',
     'ven.n5': 'Fortified Church', 'ven.l5': 'Cincșor',
     'ven.n6': 'Evangelical Church', 'ven.l6': 'Râșnov',
-    'ven.n7': 'Fortified Church', 'ven.l7': 'Moșna',
     'ven.n8': 'Great Synagogue', 'ven.l8': 'Rădăuți',
     'ven.n9': 'Baths Casino', 'ven.l9': 'Vatra Dornei',
     'ven.n10': 'Palace of Culture · Voivodes’ Hall', 'ven.l10': 'Iași',

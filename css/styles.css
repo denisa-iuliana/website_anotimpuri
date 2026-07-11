@@ -827,6 +827,14 @@ em { font-style: italic; color: var(--charcoal); }
   margin-top: 2rem;
 }
 @media (max-width: 700px) { .venue-list { grid-template-columns: 1fr; } }
+/* When the count is odd, center the lone last item so the grid doesn't look like one is missing */
+@media (min-width: 701px) {
+  .venue-list .venue-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - 0.75rem);
+  }
+}
 .venue-item {
   padding: 1.2rem 1.5rem;
   background: rgba(250, 243, 227, 0.6);
