@@ -601,6 +601,43 @@ em { font-style: italic; color: var(--charcoal); }
   .event-item:hover { padding-left: 0; }
 }
 
+/* --- SOLD OUT OVERLAY (shared: event list + program list) --- */
+.sold-out { position: relative; }
+.event-item.sold-out:hover { background: transparent; padding-left: 0; }
+.program-list li.sold-out:hover { background: transparent; }
+.sold-out > *:not(.sold-out-overlay) { opacity: 0.4; }
+.sold-out-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.sold-out-overlay > span {
+  font-family: var(--font-eyebrow);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: var(--summer-deep);
+  padding: 0.5rem 1.6rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.btn.is-disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.event-note {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--warm-grey);
+  line-height: 1.6;
+}
+
 /* --- MUSICIAN CARDS --- */
 .musician-grid {
   display: grid;
