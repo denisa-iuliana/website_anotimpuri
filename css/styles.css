@@ -632,9 +632,9 @@ em { font-style: italic; color: var(--charcoal); }
 }
 .event-note {
   margin-top: 1.5rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-style: italic;
-  color: var(--warm-grey);
+  color: var(--charcoal);
   line-height: 1.6;
 }
 
