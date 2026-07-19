@@ -1,7 +1,7 @@
 # anotimpuri.com
 
 Website for **ANOTIMPURI / Vivaldi**, the national tour of the Romanian Guitar
-Quartet — a series of 9 concerts in heritage venues across Romania, July–August 2026. Organized by Asociația Culturală Kitharalogos, co-financed by AFCN
+Quartet — a series of 10 concerts in heritage venues across Romania, July–August 2026. Organized by Asociația Culturală Kitharalogos, co-financed by AFCN
 (Administrația Fondului Cultural Național).
 
 🌐 Live at: <https://anotimpuri.com>
