@@ -51,7 +51,7 @@
   if (sendBtn) {
 
     /* ÎNLOCUIEȘTE cu URL-ul propriu (Deploy → Manage deployments). */
-    var FORM_ENDPOINT = 'https://script.google.com/macros/s/AICI_ID_UL_TAU/exec';
+    var FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxTq0C7IMir_0ssEpUjdxlyN_xP0zSX62N6ueMvmP4ke4OMsviHS4jj_XZi7tJnYwle/exec';
 
     var TIMEOUT_MS = 25000;
 
