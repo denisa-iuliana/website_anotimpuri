@@ -41,17 +41,19 @@
   }
 
   /* ---------- 3. FORMULAR DE CONTACT ----------
-     Datele se trimit prin fetch() către un Google Apps Script,
-     care le expediază mai departe pe e-mail. Nu se mai folosește
-     mailto:, deci diacriticele ajung intacte, iar vizitatorul
-     rămâne pe site.
+     Trimiterea se face printr-un formular ascuns care are ca țintă
+     un <iframe> invizibil. Metoda nu folosește deloc CORS, deci
+     funcționează identic pe desktop, pe mobil și în orice browser.
+     Diacriticele circulă corect: formularul este UTF-8.
      ------------------------------------------------------------- */
 
   var sendBtn = document.getElementById('send-btn');
   if (sendBtn) {
 
-    /* ÎNLOCUIEȘTE cu URL-ul propriu după publicarea Apps Script-ului. */
-    var FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz_UyDH-VcQBPawZwuTLe75U-AnniNt-C6EZE0yFsTSaQJmO-h65mFUexuYJh5QPeB_/exec';
+    /* ÎNLOCUIEȘTE cu URL-ul propriu (Deploy → Manage deployments). */
+    var FORM_ENDPOINT = 'https://script.google.com/macros/s/AICI_ID_UL_TAU/exec';
+
+    var TIMEOUT_MS = 25000;
 
     var statusEl   = document.getElementById('form-status');
     var captchaAEl = document.getElementById('captcha-a');
@@ -62,10 +64,11 @@
     var loadTime = Date.now();
     var captchaA = 0;
     var captchaB = 0;
+    var inCurs   = false;
 
     function genereazaCaptcha() {
-      captchaA = Math.floor(Math.random() * 8) + 2;   // 2..9
-      captchaB = Math.floor(Math.random() * 8) + 2;   // 2..9
+      captchaA = Math.floor(Math.random() * 8) + 2;
+      captchaB = Math.floor(Math.random() * 8) + 2;
       if (captchaAEl) captchaAEl.textContent = String(captchaA);
       if (captchaBEl) captchaBEl.textContent = String(captchaB);
       if (captchaIn) captchaIn.value = '';
@@ -83,16 +86,76 @@
       return el ? el.value.trim() : '';
     }
 
+    function blocheazaButonul(blocat, textNou) {
+      sendBtn.disabled = blocat;
+      if (textNou) sendBtn.textContent = textNou;
+    }
+
+    /* Trimite datele printr-un formular ascuns către un iframe ascuns.
+       Nu putem citi răspunsul (iframe cross-origin), dar evenimentul
+       „load" ne confirmă că serverul a răspuns. */
+    function trimitePrinIframe(date, laSucces, laEroare) {
+      var numeIframe = 'anotimpuri-target-' + Date.now();
+
+      var iframe = document.createElement('iframe');
+      iframe.name = numeIframe;
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = FORM_ENDPOINT;
+      form.target = numeIframe;
+      form.acceptCharset = 'UTF-8';
+      form.style.display = 'none';
+
+      Object.keys(date).forEach(function (cheie) {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = cheie;
+        input.value = String(date[cheie]);
+        form.appendChild(input);
+      });
+
+      document.body.appendChild(form);
+
+      var terminat = false;
+
+      function curata() {
+        if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+        if (form.parentNode) form.parentNode.removeChild(form);
+      }
+
+      var ceas = setTimeout(function () {
+        if (terminat) return;
+        terminat = true;
+        curata();
+        laEroare();
+      }, TIMEOUT_MS);
+
+      iframe.addEventListener('load', function () {
+        if (terminat) return;
+        terminat = true;
+        clearTimeout(ceas);
+        curata();
+        laSucces();
+      });
+
+      form.submit();
+    }
+
     sendBtn.addEventListener('click', function () {
-      var nume    = valoare('nume');
-      var email   = valoare('email');
-      var mesaj   = valoare('mesaj');
+      if (inCurs) return;
+
+      var nume  = valoare('nume');
+      var email = valoare('email');
+      var mesaj = valoare('mesaj');
+
       var selectSubiect = document.getElementById('subiect');
       var subiect = selectSubiect ? selectSubiect.value : 'altul';
 
       /* Textul vizibil al opțiunii („Întrebare generală") — cu diacritice
-         corecte, direct din pagină. Îl trimitem către server, ca acesta
-         să nu mai fie nevoit să conțină el însuși diacritice. */
+         corecte, direct din pagină. */
       var subiectEticheta = 'Mesaj';
       if (selectSubiect && selectSubiect.selectedIndex >= 0) {
         subiectEticheta = selectSubiect.options[selectSubiect.selectedIndex].text.trim();
@@ -119,58 +182,44 @@
         subiect: subiect,
         subiectEticheta: subiectEticheta,
         mesaj: mesaj,
-        website: hpEl ? hpEl.value : '',        // honeypot
-        elapsed: Date.now() - loadTime,          // time-gate
+        website: hpEl ? hpEl.value : '',
+        elapsed: Date.now() - loadTime,
         captchaA: captchaA,
         captchaB: captchaB,
         captchaRaspuns: Number(captchaIn ? captchaIn.value : 0)
       };
 
-      sendBtn.disabled = true;
+      inCurs = true;
       var textInitial = sendBtn.textContent;
-      sendBtn.textContent = 'Se trimite...';
+      blocheazaButonul(true, 'Se trimite...');
       arataStatus('Se trimite mesajul...', '');
 
-      /* text/plain evită cererea preflight CORS, pe care
-         Apps Script nu o tratează corect. Conținutul rămâne JSON. */
-      fetch(FORM_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(date)
-      })
-        .then(function (r) { return r.json(); })
-        .then(function (rez) {
-          if (rez && rez.ok) {
-            arataStatus('Îți mulțumim! Mesajul a fost trimis. Revenim cât de curând.', 'success');
-            ['nume', 'email', 'mesaj'].forEach(function (id) {
-              var el = document.getElementById(id);
-              if (el) el.value = '';
-            });
-            genereazaCaptcha();
-            loadTime = Date.now();
-            if (typeof window.gtag === 'function') {
-              window.gtag('event', 'contact_form_submit');
-            }
-          } else {
-            arataStatus((rez && rez.mesaj) || 'Mesajul nu a putut fi trimis.', 'error');
-            genereazaCaptcha();
+      trimitePrinIframe(
+        date,
+        function () {
+          inCurs = false;
+          blocheazaButonul(false, textInitial);
+          arataStatus('Îți mulțumim! Mesajul a fost trimis. Revenim cât de curând.', 'success');
+          ['nume', 'email', 'mesaj'].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.value = '';
+          });
+          genereazaCaptcha();
+          loadTime = Date.now();
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'contact_form_submit');
           }
-        })
-        .catch(function (err) {
-          /* TEMPORAR, pentru depanare pe mobil: afișăm eroarea reală.
-             După ce formularul merge peste tot, înlocuiește textul de mai
-             jos cu mesajul prietenos:
-             'Mesajul nu a putut fi trimis. Ne poți scrie direct la kitharalogos@gmail.com.' */
+        },
+        function () {
+          inCurs = false;
+          blocheazaButonul(false, textInitial);
           arataStatus(
-            'Eroare: ' + (err && err.message ? err.message : String(err)),
+            'Mesajul nu a putut fi trimis. Ne poți scrie direct la kitharalogos@gmail.com.',
             'error'
           );
           genereazaCaptcha();
-        })
-        .then(function () {
-          sendBtn.disabled = false;
-          sendBtn.textContent = textInitial;
-        });
+        }
+      );
     });
   }
 
