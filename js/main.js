@@ -40,32 +40,124 @@
     reveals.forEach(function (el) { observer.observe(el); });
   }
 
-  /* ---------- 3. FORMULAR DE CONTACT ---------- */
+  /* ---------- 3. FORMULAR DE CONTACT ----------
+     Datele se trimit prin fetch() către un Google Apps Script,
+     care le expediază mai departe pe e-mail. Nu se mai folosește
+     mailto:, deci diacriticele ajung intacte, iar vizitatorul
+     rămâne pe site.
+     ------------------------------------------------------------- */
+
   var sendBtn = document.getElementById('send-btn');
   if (sendBtn) {
-    var subjectLabels = {
-      presa: 'Solicitare de presă',
-      rezervari: 'Rezervări concert',
-      parteneriat: 'Propunere de parteneriat',
-      general: 'Întrebare generală',
-      altul: 'Altul'
-    };
+
+    var FORM_ENDPOINT = 'https://script.google.com/macros/u/1/s/AKfycbzqjkUApefnAjVqyRenpZM31_2X1SBfnw2ts_oH143dBRj5dGlcgkHnTQUPCWSFxWhL/exec';
+
+    var statusEl   = document.getElementById('form-status');
+    var captchaAEl = document.getElementById('captcha-a');
+    var captchaBEl = document.getElementById('captcha-b');
+    var captchaIn  = document.getElementById('captcha');
+    var hpEl       = document.getElementById('website');
+
+    var loadTime = Date.now();
+    var captchaA = 0;
+    var captchaB = 0;
+
+    function genereazaCaptcha() {
+      captchaA = Math.floor(Math.random() * 8) + 2;   // 2..9
+      captchaB = Math.floor(Math.random() * 8) + 2;   // 2..9
+      if (captchaAEl) captchaAEl.textContent = String(captchaA);
+      if (captchaBEl) captchaBEl.textContent = String(captchaB);
+      if (captchaIn) captchaIn.value = '';
+    }
+    genereazaCaptcha();
+
+    function arataStatus(text, tip) {
+      if (!statusEl) return;
+      statusEl.textContent = text;
+      statusEl.className = 'form-status' + (tip ? ' form-status--' + tip : '');
+    }
+
+    function valoare(id) {
+      var el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+
     sendBtn.addEventListener('click', function () {
-      var nume = document.getElementById('nume').value.trim();
-      var email = document.getElementById('email').value.trim();
-      var subiect = document.getElementById('subiect').value;
-      var mesaj = document.getElementById('mesaj').value.trim();
+      var nume    = valoare('nume');
+      var email   = valoare('email');
+      var mesaj   = valoare('mesaj');
+      var subiect = document.getElementById('subiect')
+                      ? document.getElementById('subiect').value
+                      : 'altul';
 
-      var subject = 'Anotimpuri — ' + (subjectLabels[subiect] || 'Mesaj');
-      var body =
-        'Nume: ' + nume + '\n' +
-        'Email: ' + email + '\n' +
-        'Subiect: ' + (subjectLabels[subiect] || subiect) + '\n\n' +
-        mesaj;
+      /* --- Validare în browser --- */
+      if (!nume || !email || !mesaj) {
+        arataStatus('Te rugăm să completezi numele, adresa de e-mail și mesajul.', 'error');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        arataStatus('Adresa de e-mail nu pare validă.', 'error');
+        return;
+      }
+      if (Number(captchaIn && captchaIn.value) !== (captchaA + captchaB)) {
+        arataStatus('Rezultatul operației de verificare nu este corect.', 'error');
+        genereazaCaptcha();
+        return;
+      }
 
-      window.location.href = 'mailto:kitharalogos@gmail.com'
-        + '?subject=' + encodeURIComponent(subject)
-        + '&body=' + encodeURIComponent(body);
+      var date = {
+        nume: nume,
+        email: email,
+        subiect: subiect,
+        mesaj: mesaj,
+        website: hpEl ? hpEl.value : '',        // honeypot
+        elapsed: Date.now() - loadTime,          // time-gate
+        captchaA: captchaA,
+        captchaB: captchaB,
+        captchaRaspuns: Number(captchaIn ? captchaIn.value : 0)
+      };
+
+      sendBtn.disabled = true;
+      var textInitial = sendBtn.textContent;
+      sendBtn.textContent = 'Se trimite...';
+      arataStatus('Se trimite mesajul...', '');
+
+      /* text/plain evită cererea preflight CORS, pe care
+         Apps Script nu o tratează corect. Conținutul rămâne JSON. */
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(date)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (rez) {
+          if (rez && rez.ok) {
+            arataStatus('Îți mulțumim! Mesajul a fost trimis. Revenim cât de curând.', 'success');
+            ['nume', 'email', 'mesaj'].forEach(function (id) {
+              var el = document.getElementById(id);
+              if (el) el.value = '';
+            });
+            genereazaCaptcha();
+            loadTime = Date.now();
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'contact_form_submit');
+            }
+          } else {
+            arataStatus((rez && rez.mesaj) || 'Mesajul nu a putut fi trimis.', 'error');
+            genereazaCaptcha();
+          }
+        })
+        .catch(function () {
+          arataStatus(
+            'Mesajul nu a putut fi trimis. Ne poți scrie direct la kitharalogos@gmail.com.',
+            'error'
+          );
+          genereazaCaptcha();
+        })
+        .then(function () {
+          sendBtn.disabled = false;
+          sendBtn.textContent = textInitial;
+        });
     });
   }
 
