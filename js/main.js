@@ -51,7 +51,7 @@
   if (sendBtn) {
 
     /* ÎNLOCUIEȘTE cu URL-ul propriu după publicarea Apps Script-ului. */
-    var FORM_ENDPOINT = 'https://script.google.com/macros/s/AICI_ID_UL_TAU/exec';
+    var FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz_UyDH-VcQBPawZwuTLe75U-AnniNt-C6EZE0yFsTSaQJmO-h65mFUexuYJh5QPeB_/exec';
 
     var statusEl   = document.getElementById('form-status');
     var captchaAEl = document.getElementById('captcha-a');
