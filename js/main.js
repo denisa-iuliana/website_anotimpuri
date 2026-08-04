@@ -50,7 +50,9 @@
   var sendBtn = document.getElementById('send-btn');
   if (sendBtn) {
 
-    var FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwBTSrMMMXEfG9uVlrKQgtfG4wFcCy2eu1hhDvuaze1607NDaVXKcd7Z29p5y4VYGPV/exec';
+    /* ÎNLOCUIEȘTE cu URL-ul propriu după publicarea Apps Script-ului. */
+    var FORM_ENDPOINT = 'https://script.google.com/macros/s/AICI_ID_UL_TAU/exec';
+
     var statusEl   = document.getElementById('form-status');
     var captchaAEl = document.getElementById('captcha-a');
     var captchaBEl = document.getElementById('captcha-b');
@@ -85,9 +87,16 @@
       var nume    = valoare('nume');
       var email   = valoare('email');
       var mesaj   = valoare('mesaj');
-      var subiect = document.getElementById('subiect')
-                      ? document.getElementById('subiect').value
-                      : 'altul';
+      var selectSubiect = document.getElementById('subiect');
+      var subiect = selectSubiect ? selectSubiect.value : 'altul';
+
+      /* Textul vizibil al opțiunii („Întrebare generală") — cu diacritice
+         corecte, direct din pagină. Îl trimitem către server, ca acesta
+         să nu mai fie nevoit să conțină el însuși diacritice. */
+      var subiectEticheta = 'Mesaj';
+      if (selectSubiect && selectSubiect.selectedIndex >= 0) {
+        subiectEticheta = selectSubiect.options[selectSubiect.selectedIndex].text.trim();
+      }
 
       /* --- Validare în browser --- */
       if (!nume || !email || !mesaj) {
@@ -108,6 +117,7 @@
         nume: nume,
         email: email,
         subiect: subiect,
+        subiectEticheta: subiectEticheta,
         mesaj: mesaj,
         website: hpEl ? hpEl.value : '',        // honeypot
         elapsed: Date.now() - loadTime,          // time-gate
@@ -146,9 +156,13 @@
             genereazaCaptcha();
           }
         })
-        .catch(function () {
+        .catch(function (err) {
+          /* TEMPORAR, pentru depanare pe mobil: afișăm eroarea reală.
+             După ce formularul merge peste tot, înlocuiește textul de mai
+             jos cu mesajul prietenos:
+             'Mesajul nu a putut fi trimis. Ne poți scrie direct la kitharalogos@gmail.com.' */
           arataStatus(
-            'Mesajul nu a putut fi trimis. Ne poți scrie direct la kitharalogos@gmail.com.',
+            'Eroare: ' + (err && err.message ? err.message : String(err)),
             'error'
           );
           genereazaCaptcha();
