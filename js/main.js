@@ -50,8 +50,7 @@
   var sendBtn = document.getElementById('send-btn');
   if (sendBtn) {
 
-    var FORM_ENDPOINT = 'https://script.google.com/macros/u/1/s/AKfycbzqjkUApefnAjVqyRenpZM31_2X1SBfnw2ts_oH143dBRj5dGlcgkHnTQUPCWSFxWhL/exec';
-
+    var FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwBTSrMMMXEfG9uVlrKQgtfG4wFcCy2eu1hhDvuaze1607NDaVXKcd7Z29p5y4VYGPV/exec';
     var statusEl   = document.getElementById('form-status');
     var captchaAEl = document.getElementById('captcha-a');
     var captchaBEl = document.getElementById('captcha-b');
