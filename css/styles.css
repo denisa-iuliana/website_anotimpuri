@@ -831,6 +831,52 @@ em { font-style: italic; color: var(--charcoal); }
 }
 .form-group textarea { min-height: 160px; resize: vertical; }
 
+/* --- Câmp-capcană pentru boți (honeypot) ---
+   Ascuns pentru oameni, dar vizibil pentru scripturile automate.
+   NU folosi display:none — unii boți îl detectează. */
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- Întrebarea de verificare --- */
+.form-group--captcha input {
+  max-width: 220px;
+}
+.form-group--captcha label span {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--summer-deep);
+  letter-spacing: 0;
+}
+
+/* --- Mesajul de stare de sub buton --- */
+.form-status {
+  margin-top: 1.1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  min-height: 1.4em;
+}
+.form-status--success {
+  color: var(--summer-deep);
+  font-weight: 600;
+}
+.form-status--error {
+  color: #b3402a;
+}
+
+/* --- Butonul în timpul trimiterii --- */
+#send-btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
 /* --- PAGE HERO (sub-pages) --- */
 .page-hero {
   padding: 5rem 2rem 4rem;

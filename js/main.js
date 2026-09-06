@@ -40,32 +40,186 @@
     reveals.forEach(function (el) { observer.observe(el); });
   }
 
-  /* ---------- 3. FORMULAR DE CONTACT ---------- */
+  /* ---------- 3. FORMULAR DE CONTACT ----------
+     Trimiterea se face printr-un formular ascuns care are ca țintă
+     un <iframe> invizibil. Metoda nu folosește deloc CORS, deci
+     funcționează identic pe desktop, pe mobil și în orice browser.
+     Diacriticele circulă corect: formularul este UTF-8.
+     ------------------------------------------------------------- */
+
   var sendBtn = document.getElementById('send-btn');
   if (sendBtn) {
-    var subjectLabels = {
-      presa: 'Solicitare de presă',
-      rezervari: 'Rezervări concert',
-      parteneriat: 'Propunere de parteneriat',
-      general: 'Întrebare generală',
-      altul: 'Altul'
-    };
+
+    /* ÎNLOCUIEȘTE cu URL-ul propriu (Deploy → Manage deployments). */
+    var FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxTq0C7IMir_0ssEpUjdxlyN_xP0zSX62N6ueMvmP4ke4OMsviHS4jj_XZi7tJnYwle/exec';
+
+    var TIMEOUT_MS = 25000;
+
+    var statusEl   = document.getElementById('form-status');
+    var captchaAEl = document.getElementById('captcha-a');
+    var captchaBEl = document.getElementById('captcha-b');
+    var captchaIn  = document.getElementById('captcha');
+    var hpEl       = document.getElementById('website');
+
+    var loadTime = Date.now();
+    var captchaA = 0;
+    var captchaB = 0;
+    var inCurs   = false;
+
+    function genereazaCaptcha() {
+      captchaA = Math.floor(Math.random() * 8) + 2;
+      captchaB = Math.floor(Math.random() * 8) + 2;
+      if (captchaAEl) captchaAEl.textContent = String(captchaA);
+      if (captchaBEl) captchaBEl.textContent = String(captchaB);
+      if (captchaIn) captchaIn.value = '';
+    }
+    genereazaCaptcha();
+
+    function arataStatus(text, tip) {
+      if (!statusEl) return;
+      statusEl.textContent = text;
+      statusEl.className = 'form-status' + (tip ? ' form-status--' + tip : '');
+    }
+
+    function valoare(id) {
+      var el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+
+    function blocheazaButonul(blocat, textNou) {
+      sendBtn.disabled = blocat;
+      if (textNou) sendBtn.textContent = textNou;
+    }
+
+    /* Trimite datele printr-un formular ascuns către un iframe ascuns.
+       Nu putem citi răspunsul (iframe cross-origin), dar evenimentul
+       „load" ne confirmă că serverul a răspuns. */
+    function trimitePrinIframe(date, laSucces, laEroare) {
+      var numeIframe = 'anotimpuri-target-' + Date.now();
+
+      var iframe = document.createElement('iframe');
+      iframe.name = numeIframe;
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = FORM_ENDPOINT;
+      form.target = numeIframe;
+      form.acceptCharset = 'UTF-8';
+      form.style.display = 'none';
+
+      Object.keys(date).forEach(function (cheie) {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = cheie;
+        input.value = String(date[cheie]);
+        form.appendChild(input);
+      });
+
+      document.body.appendChild(form);
+
+      var terminat = false;
+
+      function curata() {
+        if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+        if (form.parentNode) form.parentNode.removeChild(form);
+      }
+
+      var ceas = setTimeout(function () {
+        if (terminat) return;
+        terminat = true;
+        curata();
+        laEroare();
+      }, TIMEOUT_MS);
+
+      iframe.addEventListener('load', function () {
+        if (terminat) return;
+        terminat = true;
+        clearTimeout(ceas);
+        curata();
+        laSucces();
+      });
+
+      form.submit();
+    }
+
     sendBtn.addEventListener('click', function () {
-      var nume = document.getElementById('nume').value.trim();
-      var email = document.getElementById('email').value.trim();
-      var subiect = document.getElementById('subiect').value;
-      var mesaj = document.getElementById('mesaj').value.trim();
+      if (inCurs) return;
 
-      var subject = 'Anotimpuri — ' + (subjectLabels[subiect] || 'Mesaj');
-      var body =
-        'Nume: ' + nume + '\n' +
-        'Email: ' + email + '\n' +
-        'Subiect: ' + (subjectLabels[subiect] || subiect) + '\n\n' +
-        mesaj;
+      var nume  = valoare('nume');
+      var email = valoare('email');
+      var mesaj = valoare('mesaj');
 
-      window.location.href = 'mailto:kitharalogos@gmail.com'
-        + '?subject=' + encodeURIComponent(subject)
-        + '&body=' + encodeURIComponent(body);
+      var selectSubiect = document.getElementById('subiect');
+      var subiect = selectSubiect ? selectSubiect.value : 'altul';
+
+      /* Textul vizibil al opțiunii („Întrebare generală") — cu diacritice
+         corecte, direct din pagină. */
+      var subiectEticheta = 'Mesaj';
+      if (selectSubiect && selectSubiect.selectedIndex >= 0) {
+        subiectEticheta = selectSubiect.options[selectSubiect.selectedIndex].text.trim();
+      }
+
+      /* --- Validare în browser --- */
+      if (!nume || !email || !mesaj) {
+        arataStatus('Te rugăm să completezi numele, adresa de e-mail și mesajul.', 'error');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        arataStatus('Adresa de e-mail nu pare validă.', 'error');
+        return;
+      }
+      if (Number(captchaIn && captchaIn.value) !== (captchaA + captchaB)) {
+        arataStatus('Rezultatul operației de verificare nu este corect.', 'error');
+        genereazaCaptcha();
+        return;
+      }
+
+      var date = {
+        nume: nume,
+        email: email,
+        subiect: subiect,
+        subiectEticheta: subiectEticheta,
+        mesaj: mesaj,
+        website: hpEl ? hpEl.value : '',
+        elapsed: Date.now() - loadTime,
+        captchaA: captchaA,
+        captchaB: captchaB,
+        captchaRaspuns: Number(captchaIn ? captchaIn.value : 0)
+      };
+
+      inCurs = true;
+      var textInitial = sendBtn.textContent;
+      blocheazaButonul(true, 'Se trimite...');
+      arataStatus('Se trimite mesajul...', '');
+
+      trimitePrinIframe(
+        date,
+        function () {
+          inCurs = false;
+          blocheazaButonul(false, textInitial);
+          arataStatus('Îți mulțumim! Mesajul a fost trimis. Revenim cât de curând.', 'success');
+          ['nume', 'email', 'mesaj'].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.value = '';
+          });
+          genereazaCaptcha();
+          loadTime = Date.now();
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'contact_form_submit');
+          }
+        },
+        function () {
+          inCurs = false;
+          blocheazaButonul(false, textInitial);
+          arataStatus(
+            'Mesajul nu a putut fi trimis. Ne poți scrie direct la kitharalogos@gmail.com.',
+            'error'
+          );
+          genereazaCaptcha();
+        }
+      );
     });
   }
 

@@ -23,6 +23,7 @@
           <li><a href="index.html#concerte">Program</a></li>
           <li><a href="index.html#interpreti">Interpreți</a></li>
           <li><a href="index.html#compozitori">Compozitori</a></li>
+          <li><a href="galerie.html">Galerie</a></li>
           <li><a href="contact.html" class="active">Contact</a></li>
         </ul>
       </nav>
@@ -99,9 +100,26 @@
               <textarea id="mesaj" name="mesaj" placeholder="Scrie aici mesajul tău..."></textarea>
             </div>
 
+            <!-- Câmp-capcană pentru boți: ascuns vizual, trebuie să rămână gol. -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="website">Nu completa acest câmp</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <!-- Verificare simplă anti-spam -->
+            <div class="form-group form-group--captcha">
+              <label for="captcha">
+                Verificare: cât face <span id="captcha-a">?</span> + <span id="captcha-b">?</span>
+              </label>
+              <input type="text" id="captcha" name="captcha" inputmode="numeric"
+                     autocomplete="off" placeholder="Scrie rezultatul">
+            </div>
+
             <button type="button" class="btn btn--filled" id="send-btn">
               Trimite mesajul
             </button>
+
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
           </div>
 
           <!-- INFO -->
@@ -204,6 +222,7 @@
             <li><a href="index.html#concerte">Program</a></li>
             <li><a href="index.html#interpreti">Interpreți</a></li>
           <li><a href="index.html#compozitori">Compozitori</a></li>
+            <li><a href="galerie.html">Galerie</a></li>
             <li><a href="contact.html">Contact</a></li>
             <li><a href="confidentialitate.html">Politica de confidențialitate</a></li>
           </ul>
