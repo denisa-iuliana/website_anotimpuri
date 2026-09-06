@@ -104,6 +104,108 @@
       .gallery-arrow svg { width: 16px; height: 16px; }
     }
 
+    .gallery-slide img { cursor: zoom-in; }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(15, 12, 8, 0.94);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    .lightbox.open { opacity: 1; visibility: visible; }
+    .lightbox-stage {
+      position: relative;
+      max-width: 92vw;
+      max-height: 86vh;
+      overflow: hidden;
+    }
+    .lightbox-img {
+      display: block;
+      max-width: 92vw;
+      max-height: 86vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      cursor: zoom-in;
+      transition: transform 0.25s ease;
+      transform: scale(1);
+      transform-origin: center center;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lightbox-img.zoomed {
+      transform: scale(2.4);
+      cursor: zoom-out;
+      transition: transform 0.1s ease-out;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      color: #17140f;
+      font-size: 1.6rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: background 0.2s ease;
+    }
+    .lightbox-close:hover { background: #fff; }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.2s ease;
+    }
+    .lightbox-nav:hover { background: #fff; }
+    .lightbox-nav--prev { left: 20px; }
+    .lightbox-nav--next { right: 20px; }
+    .lightbox-nav svg {
+      width: 24px; height: 24px;
+      fill: none; stroke: #17140f; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .lightbox-counter {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.85);
+      font-family: var(--font-heading);
+      letter-spacing: 0.05em;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 640px) {
+      .lightbox-nav { width: 42px; height: 42px; }
+      .lightbox-nav--prev { left: 8px; }
+      .lightbox-nav--next { right: 8px; }
+      .lightbox-close { top: 10px; right: 10px; }
+    }
+
     /* DOCUMENTARE — video grid */
     .video-grid {
       display: grid;
@@ -388,6 +490,21 @@
     </div>
   </footer>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagine mărită">
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Închide">&times;</button>
+    <button type="button" class="lightbox-nav lightbox-nav--prev" id="lightbox-prev" aria-label="Imaginea anterioară">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <div class="lightbox-stage">
+      <img class="lightbox-img" id="lightbox-img" alt="">
+    </div>
+    <button type="button" class="lightbox-nav lightbox-nav--next" id="lightbox-next" aria-label="Imaginea următoare">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <div class="lightbox-counter"><span id="lightbox-current">1</span> / <span id="lightbox-total">1</span></div>
+  </div>
+
   <script src="js/i18n.js" defer></script>
   <script src="js/main.js" defer></script>
   <script>
@@ -457,6 +574,93 @@
         if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { dx < 0 ? next() : prev(); }
         startX = null;
         startY = null;
+      }, { passive: true });
+
+      /* --- Lightbox --- */
+      var lightbox = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lightbox-img');
+      var lbCurrent = document.getElementById('lightbox-current');
+      var lbTotal = document.getElementById('lightbox-total');
+      var lbIndex = 0;
+
+      lbTotal.textContent = total;
+
+      function resetZoom() {
+        lbImg.classList.remove('zoomed');
+        lbImg.style.transformOrigin = 'center center';
+      }
+      function showLb(i) {
+        lbIndex = (i + total) % total;
+        var src = slides[lbIndex].querySelector('img');
+        resetZoom();
+        lbImg.src = src.getAttribute('src');
+        lbImg.alt = src.getAttribute('alt') || '';
+        lbCurrent.textContent = lbIndex + 1;
+      }
+      function openLb(i) {
+        showLb(i);
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeLb() {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+        resetZoom();
+      }
+
+      slides.forEach(function (fig, i) {
+        var img = fig.querySelector('img');
+        if (img) img.addEventListener('click', function () { openLb(i); });
+      });
+
+      document.getElementById('lightbox-close').addEventListener('click', closeLb);
+      document.getElementById('lightbox-next').addEventListener('click', function () { showLb(lbIndex + 1); });
+      document.getElementById('lightbox-prev').addEventListener('click', function () { showLb(lbIndex - 1); });
+
+      // Click the backdrop (outside the image) to close.
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox || e.target.classList.contains('lightbox-stage')) closeLb();
+      });
+
+      // Click to toggle zoom; pan by following the cursor while zoomed.
+      lbImg.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (lbImg.classList.contains('zoomed')) {
+          resetZoom();
+        } else {
+          var r = lbImg.getBoundingClientRect();
+          var x = ((e.clientX - r.left) / r.width) * 100;
+          var y = ((e.clientY - r.top) / r.height) * 100;
+          lbImg.style.transformOrigin = x + '% ' + y + '%';
+          lbImg.classList.add('zoomed');
+        }
+      });
+      lbImg.addEventListener('mousemove', function (e) {
+        if (!lbImg.classList.contains('zoomed')) return;
+        var r = lbImg.getBoundingClientRect();
+        var x = ((e.clientX - r.left) / r.width) * 100;
+        var y = ((e.clientY - r.top) / r.height) * 100;
+        lbImg.style.transformOrigin = x + '% ' + y + '%';
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLb();
+        if (e.key === 'ArrowRight') showLb(lbIndex + 1);
+        if (e.key === 'ArrowLeft') showLb(lbIndex - 1);
+      });
+
+      // Swipe inside the lightbox to move between images.
+      var lbStartX = null;
+      lightbox.addEventListener('touchstart', function (e) {
+        if (lbImg.classList.contains('zoomed')) { lbStartX = null; return; }
+        lbStartX = e.touches[0].clientX;
+      }, { passive: true });
+      lightbox.addEventListener('touchend', function (e) {
+        if (lbStartX === null) return;
+        var dx = e.changedTouches[0].clientX - lbStartX;
+        if (Math.abs(dx) > 40) { dx < 0 ? showLb(lbIndex + 1) : showLb(lbIndex - 1); }
+        lbStartX = null;
       }, { passive: true });
 
       update();
